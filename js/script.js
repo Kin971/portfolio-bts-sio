@@ -17,17 +17,12 @@ const APP_ROOT = (() => {
   return src ? src.replace(/js\/script\.js(?:\?.*)?$/, '') : './';
 })();
 
-/* ─── Chemin racine — modifiable via le panneau de config du portfolio ───
-   Vide sur le serveur : server.py résout tout chemin relatif depuis son
-   propre dossier "cours/" (VIEWER_ROOT), pas depuis un disque local. La
-   valeur Windows (G:\...) n'a de sens que pour un lancement en local sur
-   le PC — le panneau ⚙️ Configuration permet toujours de la redéfinir. */
-const DEFAULT_ROOT = '';
-function getRafRoot() {
-  const r = (localStorage.getItem('raf_root') || DEFAULT_ROOT).replace(/\\/g, '/');
-  if (!r) return '';
-  return r.replace(/\/+$/, '') + '/';
-}
+/* ─── Chemins des fichiers de cours ───
+   Tous les chemins (data-path, config.json) sont relatifs au dossier
+   cours/ du serveur : server.py les résout depuis VIEWER_ROOT et refuse
+   tout ce qui en sort. L'ancien réglage « ⚙️ Chemin » (racine Windows
+   stockée en localStorage) datait de l'usage local sur le PC ; il ne
+   pouvait plus rien faire derrière le bac à sable et a été retiré. */
 
 /* ─── Mapping extension → langue / icône / id Highlight.js ─── */
 const LANG_INFO = {
@@ -65,8 +60,20 @@ function fmtSize(b) {
   return (b / 1048576).toFixed(1) + ' Mo';
 }
 
-/* ─── Échappe une chaîne pour utilisation dans un attribut onclick JS ─── */
-function escQ(s) { return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
+/* ─── Échappe une chaîne pour l'insérer dans du HTML (texte OU attribut) ───
+   Tout ce qui vient de config.json ou du disque (titres, noms de fichiers)
+   passe par ici avant un innerHTML : un « < » ou un guillemet dans un
+   titre de projet ne doit pas pouvoir casser la page ni injecter de code. */
+function escHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+/* ─── URL de téléchargement direct d'un fichier de cours/ ─── */
+function coursUrl(rel) {
+  return APP_ROOT + 'cours/' + rel.split('/').map(encodeURIComponent).join('/');
+}
 
 /* ─── Filtre projets : jetons entiers (évite « java » dans « javascript », fiabilise data-cat) ─── */
 function projectCardMatchesFilter(cardEl, filter) {
@@ -91,6 +98,12 @@ var phrases = [
 
 function applyThemeFromConfig(theme) {
   if (!theme) return;
+  // Valeurs du preset « GitHub Dark » de l'ANCIEN design, restées dans
+  // config.json après la refonte « terminal » : appliquées telles quelles,
+  // elles donnaient aux seules pages SLAM un fond gris-bleu et des survols
+  // bleus, différents du reste du site. Ignorées ; un thème choisi
+  // explicitement dans l'admin s'applique normalement.
+  if (theme.primary === '#388bfd' && theme.bg === '#0d1117') return;
   const r = document.documentElement;
   if (theme.primary)   r.style.setProperty('--primary', theme.primary);
   if (theme.primaryH)  r.style.setProperty('--primary-h', theme.primaryH);
@@ -98,8 +111,8 @@ function applyThemeFromConfig(theme) {
   if (theme.bg)        r.style.setProperty('--bg', theme.bg);
   if (theme.surface)   r.style.setProperty('--surface', theme.surface);
   if (theme.gradientStart || theme.gradientEnd) {
-    const gs = theme.gradientStart || '#388bfd';
-    const ge = theme.gradientEnd   || '#7c3aed';
+    const gs = theme.gradientStart || '#39ff6a';
+    const ge = theme.gradientEnd   || '#34e5ff';
     r.style.setProperty('--gradient', `linear-gradient(135deg, ${gs} 0%, ${ge} 100%)`);
   }
 }
@@ -123,10 +136,10 @@ function applyConfigToDOM(cfg) {
   /* ── Héro ── */
   setText('heroBadge', h.badge);
   setText('heroName',  h.name);
-  if (h.description) {
-    const d = document.querySelector('.hero-desc');
-    if (d) d.textContent = h.description;
-  }
+  // Par id, et pas « le premier .hero-desc de la page » : les sous-pages
+  // (Projets…) chargent aussi config.js, et leur propre sous-titre était
+  // remplacé par la description de l'accueil SLAM.
+  setText('heroDesc', h.description);
   if (h.stats) {
     const nums = document.querySelectorAll('.stat-num');
     const lbls = document.querySelectorAll('.stat-lbl');
@@ -172,20 +185,20 @@ function renderProjectsFromConfig(projects) {
       (typeof p.featuredLabel === 'string' && /grand\s*projet/i.test(p.featuredLabel.trim()));
     if (isGrand && !catArr.includes('grand')) catArr.push('grand');
     const cats = catArr.join(' ');
-    const techs = (p.techs || []).map(t => `<span>${t}</span>`).join('');
-    const kpis = (p.kpis || []).map(k => `<span><b>${k.value}</b> ${k.label}</span>`).join('');
-    const comps = (p.competences || []).map(c => `<span>${c}</span>`).join('');
+    const techs = (p.techs || []).map(t => `<span>${escHtml(t)}</span>`).join('');
+    const kpis = (p.kpis || []).map(k => `<span><b>${escHtml(k.value)}</b> ${escHtml(k.label)}</span>`).join('');
+    const comps = (p.competences || []).map(c => `<span>${escHtml(c)}</span>`).join('');
     const links = (p.links || []).map(l =>
-      `<button class="plink plink-${l.style||'main'}" onclick="openFile(this)" data-path="${escQ(l.path)}">${l.label}</button>`
+      `<button type="button" class="plink plink-${l.style === 'sec' ? 'sec' : 'main'}" data-path="${escHtml(l.path)}">${escHtml(l.label)}</button>`
     ).join('');
-    return `<article class="project-card${isFeatured?' card-featured':''}" data-cat="${cats}" data-animate>
+    return `<article class="project-card${isFeatured?' card-featured':''}" data-cat="${escHtml(cats)}" data-animate>
       <div class="project-top">
-        ${isFeatured ? `<span class="project-star">⭐ ${p.featuredLabel || 'Projet phare'}</span>` : '<span></span>'}
+        ${isFeatured ? `<span class="project-star">⭐ ${escHtml(p.featuredLabel || 'Projet phare')}</span>` : '<span></span>'}
         <div class="project-techs">${techs}</div>
       </div>
-      <div class="project-icon">${p.icon||'📁'}</div>
-      <h3>${p.title}</h3>
-      <p>${p.description}</p>
+      <div class="project-icon" aria-hidden="true">${escHtml(p.icon || '📁')}</div>
+      <h3>${escHtml(p.title)}</h3>
+      <p>${escHtml(p.description)}</p>
       ${kpis ? `<div class="project-kpis">${kpis}</div>` : ''}
       ${comps ? `<div class="project-comps">${comps}</div>` : ''}
       <div class="project-links">${links}</div>
@@ -195,6 +208,7 @@ function renderProjectsFromConfig(projects) {
   // Re-attach filter logic after dynamic render
   const filterBtns = document.querySelectorAll('.filter');
   const projectCards = document.querySelectorAll('.project-card');
+  hideEmptyFilters(filterBtns, projectCards);
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -213,25 +227,58 @@ function renderProjectsFromConfig(projects) {
   });
 }
 
+/* Masque les boutons de filtre qui ne correspondraient à aucune carte :
+   un filtre « Cybersécurité » qui affiche une grille vide donne
+   l'impression d'un site cassé. Ils réapparaissent d'eux-mêmes dès
+   qu'un projet de la catégorie est ajouté depuis l'admin. */
+function hideEmptyFilters(filterBtns, projectCards) {
+  filterBtns.forEach(btn => {
+    const f = btn.dataset.filter;
+    if (f === 'all') return;
+    btn.hidden = ![...projectCards].some(card => projectCardMatchesFilter(card, f));
+  });
+}
+
+/* Carte « rapport de stage » (page SISR) — alimentée par la section
+   rapport de config.json, que l'onglet « Rapport de stage » de l'admin
+   met à jour. Sans fichier déposé, le bouton est simplement masqué. */
+function renderRapportFromConfig(r) {
+  const card = document.getElementById('rapportCard');
+  if (!card || !r) return;
+  const set = (sel, val) => { const el = card.querySelector(sel); if (el && val) el.textContent = val; };
+  set('[data-rapport="title"]', r.title);
+  set('[data-rapport="description"]', r.description);
+  const btn = card.querySelector('[data-rapport="download"]');
+  const meta = card.querySelector('[data-rapport="meta"]');
+  if (btn && r.url) {
+    // L'URL est enregistrée depuis la racine (« /files/… ») : on la
+    // rattache à APP_ROOT pour rester valable derrière un préfixe d'URL.
+    btn.href = APP_ROOT + r.url.replace(/^\/+/, '');
+    btn.hidden = false;
+    if (meta) {
+      const ext = (r.filename || '').split('.').pop().toUpperCase();
+      meta.textContent = [ext, fmtSize(r.size)].filter(Boolean).join(' · ');
+    }
+  }
+}
+
 /* =====================================================
    CODE VIEWER — fonctions principales
    ===================================================== */
 
-/* Ouvre le modal depuis un bouton avec data-path */
-async function openFile(el) {
-  const rel  = el.dataset.path;
+let _modalOpener = null;
+
+/* Ouvre le modal depuis un élément portant data-path (bouton de projet,
+   preuve du référentiel, entrée de dossier dans l'explorateur…). */
+function openFile(el) {
   // config.json stocke des chemins avec séparateurs Windows ('\') — server.py
   // (Linux) attend des '/'.
-  const full = (getRafRoot() + rel).replace(/\\/g, '/');
-  _openPath(full, rel.split(/[\\/]/).pop());
+  const rel = el.dataset.path.replace(/\\/g, '/');
+  if (!el.closest('#codeModal')) _modalOpener = el;
+  _openPath(rel, rel.split('/').filter(Boolean).pop() || rel);
 }
 
-/* Ouvre un chemin absolu (appelé depuis l'explorateur de dossier) */
-async function openFilePath(full) {
-  _openPath(full, full.split('\\').pop());
-}
-
-async function _openPath(full, displayName) {
+async function _openPath(rel, displayName) {
   const modal = document.getElementById('codeModal');
   const body  = document.getElementById('cmBody');
   modal.classList.add('active');
@@ -239,34 +286,29 @@ async function _openPath(full, displayName) {
   document.getElementById('cmIcon').textContent     = '📄';
   document.getElementById('cmLang').textContent     = '';
   document.getElementById('cmMeta').textContent     = '';
-  body.innerHTML    = `<div class="cm-loading">⏳ Chargement de <strong>${displayName}</strong>…</div>`;
+  body.innerHTML    = `<div class="cm-loading">⏳ Chargement de <strong>${escHtml(displayName)}</strong>…</div>`;
   body.dataset.code = '';
   _setCopyAction('hidden');
+  modal.querySelector('.cm-close-btn')?.focus();
 
-  const isFileProto  = window.location.protocol === 'file:';
-  const isLiveServer = window.location.port === '5500' || window.location.port === '5501';
-  if (isFileProto || isLiveServer) {
-    const reason = isLiveServer
-      ? '⚠️ VS Code Live Server ne peut pas exécuter PHP — viewer.php est servi comme texte brut.'
-      : '⚠️ Le portfolio est ouvert en fichier local.';
+  if (window.location.protocol === 'file:') {
     body.innerHTML = `<div class="cm-error">
-      ${reason}<br><br>
-      <strong>Solution :</strong> double-clique sur <code>Lancer le portfolio.bat</code><br>
-      puis accède à : <a href="http://localhost:8080" target="_blank" style="color:#7c83fd">http://localhost:8080</a>
+      ⚠️ Le portfolio est ouvert en fichier local : le lecteur a besoin du serveur.<br><br>
+      <strong>Solution :</strong> lancer <code>python3 server.py</code>
+      puis ouvrir <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>
     </div>`;
     return;
   }
 
   try {
-    const res  = await fetch(APP_ROOT + 'viewer.php?path=' + encodeURIComponent(full));
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const res  = await fetch(APP_ROOT + 'viewer.php?path=' + encodeURIComponent(rel));
     const text = await res.text();
     let data;
     try { data = JSON.parse(text); }
-    catch { throw new Error('Réponse invalide du serveur (pas du JSON). Vérifiez que viewer.php est bien servi par Python/WAMP.'); }
+    catch { throw new Error(`Réponse invalide du serveur (HTTP ${res.status}).`); }
     _renderModal(data);
   } catch (e) {
-    body.innerHTML = `<div class="cm-error">❌ ${e.message}</div>`;
+    body.innerHTML = `<div class="cm-error">❌ ${escHtml(e.message)}</div>`;
   }
 }
 
@@ -299,8 +341,7 @@ function _renderModal(data) {
   const body = document.getElementById('cmBody');
 
   if (data.error) {
-    body.innerHTML = `<div class="cm-error">❌ ${data.error}<br>
-      <small>${data.fullPath || ''}</small></div>`;
+    body.innerHTML = `<div class="cm-error">❌ ${escHtml(data.error)}</div>`;
     _setCopyAction('hidden');
     return;
   }
@@ -311,12 +352,12 @@ function _renderModal(data) {
     document.getElementById('cmIcon').textContent     = lang.icon;
     document.getElementById('cmFilename').textContent = data.name;
     document.getElementById('cmLang').textContent     = lang.name;
-    document.getElementById('cmMeta').textContent     = `${data.lines} lignes`;
+    document.getElementById('cmMeta').textContent     = `${data.lines} lignes` + (data.note ? ` · ${data.note}` : '');
 
     const hlLang = (typeof hljs !== 'undefined' && hljs.getLanguage(lang.hl)) ? lang.hl : 'plaintext';
     const highlighted = (typeof hljs !== 'undefined')
       ? hljs.highlight(data.content, { language: hlLang }).value
-      : _escapeHtml(data.content);
+      : escHtml(data.content);
 
     // Numéros de lignes — split sur le HTML mis en évidence
     const lines = highlighted.split('\n');
@@ -336,14 +377,16 @@ function _renderModal(data) {
     document.getElementById('cmLang').textContent     = 'Dossier';
     document.getElementById('cmMeta').textContent     = `${data.items.length} élément(s)`;
 
+    // Boutons (et non des <div> cliquables) : atteignables au clavier. Le
+    // clic est géré par le gestionnaire délégué sur [data-path].
     const rows = data.items.map(item => {
       const lg   = item.isDir ? { icon: '📁' } : getLang(item.ext);
       const size = fmtSize(item.size);
-      return `<div class="cm-dir-item" onclick="openFilePath('${escQ(item.path)}')">
-        <span class="cm-dir-icon">${lg.icon}</span>
-        <span class="cm-dir-name">${item.name}</span>
+      return `<button type="button" class="cm-dir-item" data-path="${escHtml(item.path)}">
+        <span class="cm-dir-icon" aria-hidden="true">${lg.icon}</span>
+        <span class="cm-dir-name">${escHtml(item.name)}</span>
         <span class="cm-dir-size">${size}</span>
-      </div>`;
+      </button>`;
     }).join('');
 
     body.innerHTML    = `<div class="cm-dir-list">${rows}</div>`;
@@ -357,7 +400,7 @@ function _renderModal(data) {
     document.getElementById('cmFilename').textContent = data.name;
     document.getElementById('cmLang').textContent     = data.ext.toUpperCase();
     document.getElementById('cmMeta').textContent     = '';
-    body.innerHTML    = `<div class="cm-img-wrap"><img src="${data.data}" alt="${data.name}"></div>`;
+    body.innerHTML    = `<div class="cm-img-wrap"><img src="${data.data}" alt="${escHtml(data.name)}"></div>`;
     body.dataset.code = '';
     _setCopyAction('open', data.data);
   }
@@ -372,7 +415,7 @@ function _renderModal(data) {
     document.getElementById('cmLang').textContent     = 'PDF';
     document.getElementById('cmMeta').textContent     = fmtSize(data.size);
     body.innerHTML = `<div class="cm-pdf-wrap">
-      <iframe src="${data.data}" class="cm-pdf-embed" title="${data.name}"></iframe>
+      <iframe src="${data.data}" class="cm-pdf-embed" title="${escHtml(data.name)}"></iframe>
     </div>`;
     body.dataset.code = '';
     _setCopyAction('open', data.data);
@@ -386,48 +429,30 @@ function _renderModal(data) {
     document.getElementById('cmFilename').textContent = data.name;
     document.getElementById('cmLang').textContent     = data.ext.toUpperCase();
     document.getElementById('cmMeta').textContent     = fmtSize(data.size);
+    // Pas d'aperçu possible : on propose le téléchargement direct (le
+    // dossier cours/ est servi statiquement). L'ancien bouton « Copier le
+    // chemin Windows » renvoyait un chemin du serveur, inutile au visiteur.
     body.innerHTML = `
       <div class="cm-binary">
-        <div class="cm-binary-icon">${icon}</div>
-        <p class="cm-binary-name">${data.name}</p>
+        <div class="cm-binary-icon" aria-hidden="true">${icon}</div>
+        <p class="cm-binary-name">${escHtml(data.name)}</p>
         <p class="cm-binary-size">${fmtSize(data.size)}</p>
-        <p class="cm-binary-note">Ce type de fichier (.${data.ext}) ne peut pas être affiché directement dans le navigateur.${data.tip ? `<br><small>${_escapeHtml(data.tip)}</small>` : ''}</p>
-        <button class="btn btn-primary" onclick="copyClip('${escQ(data.path)}')">📋 Copier le chemin Windows</button>
+        <p class="cm-binary-note">Ce type de fichier (.${escHtml(data.ext)}) ne peut pas être affiché directement dans le navigateur.${data.tip ? `<br><small>${escHtml(data.tip)}</small>` : ''}</p>
+        <a class="btn btn-primary" href="${escHtml(coursUrl(data.path))}" download>⬇️ Télécharger le fichier</a>
       </div>`;
     body.dataset.code = '';
     _setCopyAction('hidden');
   }
 }
 
-/* Ferme le modal code */
+/* Ferme le modal code et rend le focus à l'élément qui l'avait ouvert */
 function closeModal() {
-  // Optionnel : la page SISR (encore minimale) n'a pas ces modals.
-  document.getElementById('codeModal')?.classList.remove('active');
-}
-
-/* =====================================================
-   PANNEAU DE CONFIGURATION — chemin racine
-   ===================================================== */
-function openConfig() {
-  const current = localStorage.getItem('raf_root') || DEFAULT_ROOT;
-  document.getElementById('cfgInput').value = current;
-  document.getElementById('cfgModal').classList.add('active');
-}
-function closeConfig() {
-  document.getElementById('cfgModal')?.classList.remove('active');
-}
-function saveConfig() {
-  const val = document.getElementById('cfgInput').value.trim();
-  if (!val) return;
-  localStorage.setItem('raf_root', val);
-  closeConfig();
-  showToast('✅ Chemin racine sauvegardé ! Rechargement…');
-  setTimeout(() => location.reload(), 1200);
-}
-function resetConfig() {
-  localStorage.removeItem('raf_root');
-  document.getElementById('cfgInput').value = DEFAULT_ROOT;
-  showToast('↩️ Chemin réinitialisé');
+  // Optionnel : la page SISR et la page contact n'ont pas ce modal.
+  const modal = document.getElementById('codeModal');
+  if (!modal || !modal.classList.contains('active')) return;
+  modal.classList.remove('active');
+  _modalOpener?.focus();
+  _modalOpener = null;
 }
 
 /* Copie le code affiché */
@@ -447,13 +472,10 @@ function copyClip(text, msg) {
   });
 }
 
-function _escapeHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
 /* ─── Toast ─── */
 function showToast(msg) {
   const toast = document.getElementById('toast');
+  if (!toast) return;
   toast.textContent = msg;
   toast.classList.add('show');
   clearTimeout(toast._t);
@@ -474,42 +496,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ─── Fermer les modals avec Échap ─── */
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeModal(); closeConfig(); }
+  if (window.PORTFOLIO_CONFIG) renderRapportFromConfig(window.PORTFOLIO_CONFIG.rapport);
+
+  /* ─── Lecteur de fichiers : tout élément [data-path] l'ouvre ───
+     Délégation sur le document : couvre les boutons écrits dans le HTML,
+     ceux générés depuis config.json et les entrées de dossier du modal. */
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-path]');
+    if (!el || !document.getElementById('codeModal')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openFile(el);
   });
 
-  /* ─── Affiche le chemin racine actuel dans le footer ─── */
-  const rootDisplay = document.getElementById('rootDisplay');
-  if (rootDisplay) {
-    const r = localStorage.getItem('raf_root') || DEFAULT_ROOT;
-    rootDisplay.textContent = r;
-  }
+  /* ─── Fermer le modal avec Échap ─── */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
 
   /* ─── Barre de progression de lecture ─── */
   const progressBar = document.getElementById('progress-bar');
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const total    = document.documentElement.scrollHeight - window.innerHeight;
-    progressBar.style.width = (scrolled / total * 100) + '%';
-  });
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (total > 0 ? window.scrollY / total * 100 : 0) + '%';
+    }, { passive: true });
+  }
 
   /* ─── Navbar : fond au scroll + lien actif ─── */
   const navbar    = document.getElementById('navbar');
-  const navLinks  = document.querySelectorAll('.nav-link');
+  // Seuls les liens d'ancre (#section) suivent le défilement. Les liens vers
+  // une autre page gardent la classe « active » posée dans le HTML — avant,
+  // elle disparaissait au premier défilement sur toutes les sous-pages.
+  const navLinks  = document.querySelectorAll('.nav-link[href^="#"]');
   const sections  = document.querySelectorAll('section[id]');
+  const toTop     = document.getElementById('toTop');
 
   window.addEventListener('scroll', () => {
     // Fond navbar
     navbar.classList.toggle('scrolled', window.scrollY > 60);
 
     // Bouton retour en haut
-    const toTop = document.getElementById('toTop');
-    toTop.classList.toggle('visible', window.scrollY > 400);
+    toTop?.classList.toggle('visible', window.scrollY > 400);
 
-    // Bouton admin (apparaît après 400px de scroll)
-    const adminBtn = document.getElementById('adminBtn');
-    if (adminBtn) adminBtn.classList.toggle('visible', window.scrollY > 400);
+    if (!sections.length) return;
 
     // Lien actif selon section visible
     let current = '';
@@ -530,21 +560,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle  = document.getElementById('navToggle');
   const navLinksEl = document.getElementById('navLinks');
 
-  navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('open');
-    navLinksEl.classList.toggle('open');
-  });
+  navToggle.setAttribute('aria-controls', 'navLinks');
+  navToggle.setAttribute('aria-expanded', 'false');
+  const setMenu = open => {
+    navToggle.classList.toggle('open', open);
+    navLinksEl.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+  };
+  navToggle.addEventListener('click', () => setMenu(!navLinksEl.classList.contains('open')));
   // Fermer le menu en cliquant sur un lien
   navLinksEl.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navToggle.classList.remove('open');
-      navLinksEl.classList.remove('open');
-    });
+    link.addEventListener('click', () => setMenu(false));
   });
 
   /* ─── Retour en haut ─── */
-  document.getElementById('toTop').addEventListener('click', () => {
+  toTop?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ─── Accordéon du référentiel ───
+     Les lignes sont des <button> (focus + Entrée/Espace natifs) ;
+     aria-expanded annonce l'état aux lecteurs d'écran. */
+  document.querySelectorAll('.ref-row').forEach(row => {
+    row.setAttribute('aria-expanded', 'false');
+    row.addEventListener('click', () => {
+      const open = row.parentElement.classList.toggle('open');
+      row.setAttribute('aria-expanded', String(open));
+    });
   });
 
   /* ─── Typewriter effect (Hero) ─── */
@@ -679,10 +721,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabPanels = document.querySelectorAll('.tab-panel');
 
   tabBtns.forEach(btn => {
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', String(btn.classList.contains('active')));
     btn.addEventListener('click', () => {
       // Bouton actif
-      tabBtns.forEach(b => b.classList.remove('active'));
+      tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
 
       // Panneau actif
       const target = btn.dataset.tab;

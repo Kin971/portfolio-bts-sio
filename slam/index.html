@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portfolio BTS SIO SLAM — Raphael TILACDHARY JEAN | Développement, Bases de données, Cybersécurité" />
   <title>Raphael TILACDHARY JEAN — Portfolio BTS SIO SLAM</title>
+  <meta name="theme-color" content="#060809" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="Raphael TILACDHARY JEAN — Portfolio BTS SIO SLAM" />
+  <meta property="og:description" content="Portfolio BTS SIO SLAM — Raphael TILACDHARY JEAN | Développement, Bases de données, Cybersécurité" />
+  <!-- Active les animations et écrans de transition (voir style.css) -->
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../vendor/highlight/atom-one-dark.min.css" />
   <script src="../config.js"></script>
 </head>
 <body data-page="slam">
@@ -46,11 +54,6 @@
         <li><a href="cybersecurite/" class="nav-link">Cybersécurité</a></li>
         <li><a href="../contact/" class="nav-link nav-cta">Contact</a></li>
         <li><a href="../sisr/" class="nav-link" title="Voir le parcours 2e année (SISR)">🎓 SISR →</a></li>
-        <li>
-          <button class="nav-link nav-cfg" onclick="openConfig()" title="Configurer le chemin racine des fichiers">
-            ⚙️ Chemin
-          </button>
-        </li>
       </ul>
     </div>
   </nav>
@@ -73,7 +76,7 @@
         <div class="hero-typewriter">
           <span id="typewriter"></span><span class="cursor">|</span>
         </div>
-        <p class="hero-desc">
+        <p id="heroDesc" class="hero-desc">
           Étudiant passionné par le développement logiciel, les bases de données et la cybersécurité.
           Je conçois des applications web complètes, maîtrise la POO Java et explore activement la sécurité informatique.
         </p>
@@ -215,7 +218,7 @@
       </div>
       <div class="hero-btns" data-animate style="justify-content:center;">
         <a href="../contact/" class="btn btn-primary">✉️ Voir mes coordonnées</a>
-        <button class="btn btn-outline" onclick="openFile(this)"
+        <button type="button" class="btn btn-outline"
           data-path="BTS SIO COURS\1ere Année\AP1-Atellers de Professionnalistion\Lettre de motivation.pdf">
           📄 Lettre de motivation
         </button>
@@ -249,13 +252,6 @@
     </div>
   </footer>
 
-  <a id="adminBtn" href="../admin" target="_blank" title="Panneau d'administration" aria-label="Admin">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-    </svg>
-    <span class="admin-btn-label">Admin</span>
-  </a>
-
   <button id="toTop" aria-label="Retour en haut">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
       <polyline points="18 15 12 9 6 15"/>
@@ -264,30 +260,9 @@
 
   <div id="toast"></div>
 
-  <!-- Panneau de configuration -->
-  <div id="cfgModal" class="cm-overlay" onclick="if(event.target===this)closeConfig()">
-    <div class="cfg-box">
-      <div class="cm-header">
-        <div class="cm-title"><span>⚙️</span><span class="cm-fname">Configuration — Chemin racine</span></div>
-        <button class="cm-btn cm-close-btn" onclick="closeConfig()">✕</button>
-      </div>
-      <div class="cfg-body">
-        <p class="cfg-info">📌 <strong>Pourquoi ce réglage ?</strong><br>Permet de faire pointer le lecteur de fichiers vers un autre dossier local (usage avancé / dev).</p>
-        <label class="cfg-label">Chemin racine</label>
-        <input id="cfgInput" class="cfg-input" type="text" placeholder="Laisser vide (par défaut)" spellcheck="false" />
-        <p id="rootDisplay" class="cfg-current"></p>
-        <div class="cfg-actions">
-          <button class="btn btn-primary" onclick="saveConfig()">✅ Sauvegarder</button>
-          <button class="btn btn-outline" onclick="resetConfig()">↩️ Réinitialiser</button>
-          <button class="btn btn-outline" onclick="closeConfig()">Annuler</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Modal visualiseur de code -->
   <div id="codeModal" class="cm-overlay" onclick="if(event.target===this)closeModal()">
-    <div class="cm-box">
+    <div class="cm-box" role="dialog" aria-modal="true" aria-labelledby="cmFilename">
       <div class="cm-header">
         <div class="cm-title">
           <span id="cmIcon">📄</span>
@@ -296,20 +271,20 @@
           <span id="cmMeta" class="cm-meta"></span>
         </div>
         <div class="cm-actions">
-          <button class="cm-btn" id="cmCopyBtn" onclick="copyModalCode()" title="Copier le code">
+          <button type="button" class="cm-btn" id="cmCopyBtn" onclick="copyModalCode()" title="Copier le code">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
             </svg>
             Copier le code
           </button>
-          <button class="cm-btn cm-close-btn" onclick="closeModal()" title="Fermer (Échap)">✕</button>
+          <button type="button" class="cm-btn cm-close-btn" onclick="closeModal()" title="Fermer (Échap)" aria-label="Fermer">✕</button>
         </div>
       </div>
       <div id="cmBody" class="cm-body"></div>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="../vendor/highlight/highlight.min.js"></script>
   <script src="../js/script.js"></script>
   <script src="../js/effects.js"></script>
 </body>

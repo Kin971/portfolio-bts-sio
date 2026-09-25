@@ -62,6 +62,10 @@ sudo systemctl enable --now portfolio.service
 ```
 Puis : `sudo a2enmod proxy proxy_http && sudo systemctl reload apache2`
 
+Apache ajoute lui-même l'IP du visiteur à la fin de `X-Forwarded-For` : c'est
+cette dernière valeur que `server.py` utilise pour limiter les tentatives de
+connexion à l'admin (5 échecs / 15 min par IP).
+
 ### Avec Nginx
 ```nginx
 server {
@@ -71,6 +75,9 @@ server {
         proxy_pass http://127.0.0.1:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
+        # REMPLACE l'en-tête (au lieu d'ajouter à celui du client) : server.py
+        # en lit la dernière valeur pour l'anti-bruteforce de /api/auth.
+        proxy_set_header X-Forwarded-For $remote_addr;
     }
 }
 ```
@@ -79,12 +86,18 @@ server {
 ```bash
 sudo certbot --apache -d tondomaine.fr    # ou --nginx
 ```
+Une fois le HTTPS en place, ajouter l'en-tête HSTS au niveau du reverse proxy
+(`server.py` ne le pose pas, il ne voit que du HTTP local) :
+- Nginx : `add_header Strict-Transport-Security "max-age=31536000" always;`
+- Apache : `Header always set Strict-Transport-Security "max-age=31536000"`
 
-## Identifiants admin actuels
-- URL : `/admin`
-- Identifiant : `<votre identifiant>`
-- Mot de passe : celui généré et communiqué séparément (change-le depuis l'onglet
-  "Sécurité" du panneau admin dès le premier accès sur le VPS).
+## Identifiants admin
+- URL : `/admin` (plus aucun lien public ne pointe vers cette page)
+- Premier lancement : si `config.json` n'a pas encore de mot de passe, `server.py`
+  en génère un et l'affiche une seule fois dans la console — sous systemd :
+  `sudo journalctl -u portfolio.service | grep "mot de passe"`.
+- Change-le depuis l'onglet « Sécurité » dès le premier accès (12 caractères
+  minimum ; les autres sessions ouvertes sont alors déconnectées).
 
 ## À savoir
 - `config.json` contient le hash du mot de passe admin (jamais en clair) et n'est
@@ -96,6 +109,12 @@ sudo certbot --apache -d tondomaine.fr    # ou --nginx
   fait tout, y compris sur un VPS sans PHP installé.
 - Dossier `tp cracking de mot passe/` : contenu d'un TP cybersécurité, pas encore
   intégré comme fiche projet dans `config.json` — à ajouter si tu veux l'afficher.
+- Le rapport de stage déposé dans l'admin s'affiche maintenant sur la page SISR
+  (section « Stage », bouton « Télécharger »).
+- Les compétences des projets (onglet « Projets » de l'admin) doivent utiliser les
+  codes officiels : B1.1 à B1.6, B2.1 à B2.3, B3.1 à B3.5. Les anciens codes
+  B2.4, B2.5, B2.6 et B6 n'existent pas dans le référentiel (voir
+  `config.example.json` pour des libellés corrigés).
 - Reste à faire (vu dans tes notes perso `x`) : ajouter CV + attestation de stage,
-  alléger le portfolio, plus d'images, mieux mettre en valeur les compétences —
-  on verra ça dans la refonte visuelle à venir.
+  plus d'images (photo de profil : voir le commentaire dans
+  `slam/apropos/index.html`), page de veille technologique.

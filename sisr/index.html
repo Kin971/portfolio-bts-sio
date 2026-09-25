@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portfolio BTS SIO SISR — Raphael TILACDHARY JEAN | Réseaux, Systèmes, Cybersécurité" />
   <title>Raphael TILACDHARY JEAN — Portfolio BTS SIO SISR</title>
+  <meta name="theme-color" content="#060809" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="Raphael TILACDHARY JEAN — Portfolio BTS SIO SISR" />
+  <meta property="og:description" content="Portfolio BTS SIO SISR — Raphael TILACDHARY JEAN | Réseaux, Systèmes, Cybersécurité" />
+  <!-- Active les animations et écrans de transition (voir style.css) -->
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="../css/style.css" />
+  <script src="../config.js"></script>
 </head>
 <body data-page="sisr">
 
@@ -47,6 +55,8 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#accueil" class="nav-link">Accueil</a></li>
         <li><a href="#apropos" class="nav-link">À propos</a></li>
+        <li><a href="#stage" class="nav-link">Stage</a></li>
+        <li><a href="#competences" class="nav-link">Compétences</a></li>
         <li><a href="#cv" class="nav-link">CV</a></li>
         <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
         <li><a href="../slam/" class="nav-link" title="Voir le parcours 1ère année (SLAM)">📚 Parcours SLAM →</a></li>
@@ -81,6 +91,7 @@
             </svg>
             Voir mon CV
           </a>
+          <a href="#stage" class="btn btn-outline">🖧 Mon stage en mairie</a>
         </div>
       </div>
     </div>
@@ -132,8 +143,10 @@
             infrastructures.
           </p>
           <p>
-            Cette page se construira avec mes projets et travaux pratiques au fur et à mesure de l'année —
-            revenez y jeter un œil régulièrement.
+            Mon stage de 1ʳᵉ année au service informatique de la mairie de Gourbeyre — support,
+            câblage réseau, découverte de pfSense — a confirmé ce choix : il est présenté
+            <a href="#stage">juste en dessous</a>. La page s'enrichira de mes projets et travaux
+            pratiques au fil de l'année.
           </p>
           <div class="tags">
             <span class="tag">🖧 Réseaux</span>
@@ -147,13 +160,242 @@
   </section>
 
   <!-- ============================
+       STAGE — 1ʳᵉ année, mairie de Gourbeyre. Contenu tiré du rapport de
+       stage ; la carte « rapport » en bas est alimentée par config.json
+       (onglet « Rapport de stage » du panneau admin).
+  ============================= -->
+  <section id="stage" class="section section-alt">
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="section-tag">02 — Stage</span>
+        <h2>Cinq semaines au service informatique d'une mairie</h2>
+        <p class="section-sub">Stage de 1ʳᵉ année — mairie de Gourbeyre, Basse-Terre — mai à juin 2026.</p>
+      </div>
+
+      <div class="stage-top">
+        <div class="profile-card stage-facts" data-animate>
+          <div class="profile-row"><span>🏛️</span><span>Structure</span><strong>Mairie de Gourbeyre</strong></div>
+          <div class="profile-row"><span>🧑‍💻</span><span>Service</span><strong>Informatique</strong></div>
+          <div class="profile-row"><span>📅</span><span>Période</span><strong>18/05 → 19/06/2026</strong></div>
+          <div class="profile-row"><span>🗺️</span><span>Périmètre</span><strong>Mairie, écoles, stade</strong></div>
+          <div class="profile-row"><span>🖧</span><span>Réseau</span><strong>pfSense, switchs, Wi-Fi</strong></div>
+        </div>
+
+        <div class="stage-context" data-animate data-delay="100">
+          <p>
+            Le service informatique de la commune repose sur <strong>un seul technicien</strong>, qui
+            assure le support de tous les sites de la ville : mairie, écoles maternelles, équipements
+            sportifs. J'ai été intégré à ses côtés sur l'ensemble de ses missions.
+          </p>
+          <p>
+            Dans une structure de cette taille, pas de spécialisation : il faut savoir intervenir aussi
+            bien sur un poste de travail qu'un copieur multifonction, un compte utilisateur, une prise
+            réseau ou le pare-feu.
+          </p>
+          <div class="stage-thread">
+            <span class="stage-thread-label">Fil rouge du stage</span>
+            <p>
+              Les pannes d'impression du début de stage venaient souvent d'un équipement devenu
+              injoignable. En fin de stage, la découverte des <strong>baux DHCP statiques</strong> sous
+              pfSense m'a donné la réponse durable : une imprimante réseau doit toujours garder la même
+              adresse IP.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-grid">
+        <article class="mission-card" data-animate>
+          <span class="mission-num">MISSION 01</span>
+          <h3>🛠️ Support et dépannage</h3>
+          <p>
+            Prise en charge des demandes des agents : recueillir le symptôme, évaluer l'urgence,
+            reproduire le problème, puis diagnostiquer <strong>du plus simple au plus complexe</strong>
+            (alimentation, branchements, voyants, connectivité réseau, configuration).
+          </p>
+          <div class="cy-tags"><span>Diagnostic</span><span>Imprimantes réseau</span><span>Méthode</span></div>
+        </article>
+
+        <article class="mission-card" data-animate data-delay="100">
+          <span class="mission-num">MISSION 02</span>
+          <h3>🤝 Accompagnement des agents</h3>
+          <p>
+            Guider plutôt que faire à la place : par exemple, montrer pas à pas à un agent comment
+            poser ses congés depuis son poste, jusqu'à ce qu'il sache le refaire seul. Un utilisateur
+            autonome, c'est une demande qui ne revient pas.
+          </p>
+          <div class="cy-tags"><span>Relation utilisateur</span><span>Pédagogie</span><span>Autonomie</span></div>
+        </article>
+
+        <article class="mission-card" data-animate>
+          <span class="mission-num">MISSION 03</span>
+          <h3>🔌 Câblage réseau du stade</h3>
+          <p>
+            Chantier de câblage Ethernet au stade municipal : repérage du cheminement, tirage des
+            câbles, raccordement et repérage des liaisons, puis <strong>tests de continuité</strong>
+            avant la mise en service. La couche physique du modèle OSI, en vrai.
+          </p>
+          <div class="cy-tags"><span>Ethernet</span><span>RJ45</span><span>Tests de liaisons</span></div>
+        </article>
+
+        <article class="mission-card" data-animate data-delay="100">
+          <span class="mission-num">MISSION 04</span>
+          <h3>🧱 Administration réseau avec pfSense</h3>
+          <p>
+            Adressage et découpage en sous-réseaux, configuration du service DHCP : plages
+            distribuées, durée des baux, <strong>réservations statiques par adresse MAC</strong>, et
+            lecture de la table des baux comme outil de diagnostic.
+          </p>
+          <div class="cy-tags"><span>pfSense</span><span>Sous-réseaux</span><span>DHCP</span></div>
+        </article>
+      </div>
+
+      <div class="rapport-card" id="rapportCard" data-animate>
+        <div class="rapport-icon" aria-hidden="true">📄</div>
+        <div class="rapport-body">
+          <strong data-rapport="title">Rapport de stage — Mairie de Gourbeyre</strong>
+          <p data-rapport="description">Le rapport complet : structure d'accueil, missions détaillées et bilan des compétences.</p>
+        </div>
+        <div class="rapport-actions">
+          <span class="rapport-meta" data-rapport="meta"></span>
+          <a class="btn btn-primary" data-rapport="download" href="#" download hidden>⬇️ Télécharger</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       COMPÉTENCES — tableau de synthèse (Bloc 1, format de l'épreuve) et
+       compétences du Bloc 2 SISR mobilisées pendant le stage.
+  ============================= -->
+  <section id="competences" class="section">
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="section-tag">03 — Compétences</span>
+        <h2>Tableau de synthèse</h2>
+        <p class="section-sub">Mes réalisations croisées avec les compétences du référentiel du BTS SIO.</p>
+      </div>
+
+      <div class="synthese" data-animate>
+        <div class="synthese-head">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="synthese-title">Bloc 1 — Support et mise à disposition de services informatiques</span>
+        </div>
+        <div class="synthese-scroll" tabindex="0" role="region" aria-label="Tableau de synthèse, défilable horizontalement">
+          <table class="synthese-table">
+            <thead>
+              <tr>
+                <th scope="col">Réalisation</th>
+                <th scope="col" title="Gérer le patrimoine informatique">B1.1<span>Patrimoine</span></th>
+                <th scope="col" title="Répondre aux incidents et aux demandes d'assistance et d'évolution">B1.2<span>Incidents</span></th>
+                <th scope="col" title="Développer la présence en ligne de l'organisation">B1.3<span>Présence en ligne</span></th>
+                <th scope="col" title="Travailler en mode projet">B1.4<span>Mode projet</span></th>
+                <th scope="col" title="Mettre à disposition des utilisateurs un service informatique">B1.5<span>Mise à dispo.</span></th>
+                <th scope="col" title="Organiser son développement professionnel">B1.6<span>Dév. pro.</span></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th scope="row"><span class="syn-title">Support et dépannage des postes, imprimantes et copieurs</span><span class="syn-ctx">Stage — mairie de Gourbeyre</span></th>
+                  <td data-comp="B1.1" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.2" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.3"></td><td data-comp="B1.4"></td><td data-comp="B1.5" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.6"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="syn-title">Accompagnement des agents (portail RH, congés, périphériques)</span><span class="syn-ctx">Stage — mairie de Gourbeyre</span></th>
+                  <td data-comp="B1.1"></td><td data-comp="B1.2" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.3"></td><td data-comp="B1.4"></td><td data-comp="B1.5" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.6"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="syn-title">Câblage réseau du stade municipal</span><span class="syn-ctx">Stage — chantier encadré</span></th>
+                  <td data-comp="B1.1"></td><td data-comp="B1.2"></td><td data-comp="B1.3"></td><td data-comp="B1.4" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.5" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.6"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="syn-title">Adressage, sous-réseaux et DHCP sous pfSense</span><span class="syn-ctx">Stage — mairie de Gourbeyre</span></th>
+                  <td data-comp="B1.1" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.2"></td><td data-comp="B1.3"></td><td data-comp="B1.4"></td><td data-comp="B1.5" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.6"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="syn-title">Portfolio en ligne auto-hébergé (ce site)</span><span class="syn-ctx">Projet personnel</span></th>
+                  <td data-comp="B1.1"></td><td data-comp="B1.2"></td><td data-comp="B1.3" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.4"></td><td data-comp="B1.5" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.6" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="syn-title">Administration d'un serveur VPS</span><span class="syn-ctx">Projet personnel</span></th>
+                  <td data-comp="B1.1"></td><td data-comp="B1.2"></td><td data-comp="B1.3"></td><td data-comp="B1.4"></td><td data-comp="B1.5" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td><td data-comp="B1.6" class="syn-yes"><span aria-hidden="true">●</span><span class="sr-only">oui</span></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 class="subsection-title" data-animate>Bloc 2 — Administration des systèmes et des réseaux</h3>
+      <div class="ref-accordion" data-animate>
+            <div class="ref-row-wrap">
+              <button type="button" class="ref-row">
+                <span class="ref-code">B2.1</span>
+                <span class="ref-row-title">Concevoir une solution d'infrastructure réseau</span>
+                <span class="ref-level partial">En cours</span>
+                <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="ref-row-details"><div class="ref-row-details-inner">
+                <p>Plan d'adressage et découpage en sous-réseaux : adresse réseau, masque, plage attribuable, passerelle. Pourquoi segmenter : séparer les usages, limiter le broadcast, filtrer par zone, diagnostiquer plus vite.</p>
+                <div class="evidences">
+                <span>🧱 pfSense — sous-réseaux</span>
+                <span>🗺️ Plan d'adressage</span>
+                </div>
+              </div></div>
+            </div>
+
+            <div class="ref-row-wrap">
+              <button type="button" class="ref-row">
+                <span class="ref-code">B2.2</span>
+                <span class="ref-row-title">Installer, tester et déployer une solution d'infrastructure réseau</span>
+                <span class="ref-level partial">En cours</span>
+                <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="ref-row-details"><div class="ref-row-details-inner">
+                <p>Tirage et raccordement de liaisons Ethernet, tests de continuité avant mise en service ; configuration du service DHCP : plages distribuées et réservations statiques par adresse MAC.</p>
+                <div class="evidences">
+                <span>🔌 Câblage du stade</span>
+                <span>🧪 Tests de liaisons</span>
+                <span>⚙️ DHCP pfSense</span>
+                </div>
+              </div></div>
+            </div>
+
+            <div class="ref-row-wrap">
+              <button type="button" class="ref-row">
+                <span class="ref-code">B2.3</span>
+                <span class="ref-row-title">Exploiter, dépanner et superviser une solution d'infrastructure réseau</span>
+                <span class="ref-level partial">En cours</span>
+                <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="ref-row-details"><div class="ref-row-details-inner">
+                <p>Diagnostic « du plus simple au plus complexe » sur le terrain ; lecture de la table des baux DHCP pour vérifier en un coup d'œil qu'une machine a bien obtenu sa configuration réseau.</p>
+                <div class="evidences">
+                <span>🛠️ Dépannage réseau</span>
+                <span>📋 Table des baux DHCP</span>
+                </div>
+              </div></div>
+            </div>
+      </div>
+
+      <div class="next-steps" data-animate>
+        <span class="next-steps-label">Objectifs de 2ᵉ année</span>
+        <div class="tags">
+          <span class="tag">🧱 Règles de filtrage pare-feu</span>
+          <span class="tag">🔀 VLAN</span>
+          <span class="tag">📈 Supervision</span>
+          <span class="tag">🔒 Sécurisation des infrastructures</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
        CV — présentation graphique (même contenu que le fichier .docx
        téléchargeable, mis en page ici plutôt qu'un simple lien).
   ============================= -->
   <section id="cv" class="section section-alt">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="section-tag">02 — CV</span>
+        <span class="section-tag">04 — CV</span>
         <h2>Mon CV en un coup d'œil</h2>
         <p class="section-sub">Le contenu exact du fichier téléchargeable, juste mieux mis en page.</p>
       </div>
@@ -307,9 +549,12 @@
 
           <div class="cv-footer">
             <span class="cv-footer-note">Document original : .docx, formaté pour l'impression.</span>
-            <a href="../files/CV_Raphael_TILACDHARY-JEAN.docx" download class="btn btn-outline">
-              📄 Télécharger le .docx original
-            </a>
+            <div class="cv-footer-actions">
+              <button type="button" class="btn btn-outline" onclick="window.print()">🖨️ Imprimer / PDF</button>
+              <a href="../files/CV_Raphael_TILACDHARY-JEAN.docx" download class="btn btn-outline">
+                📄 Télécharger le .docx original
+              </a>
+            </div>
           </div>
 
         </div>
@@ -322,10 +567,10 @@
        parcours (SLAM et SISR partagent la même adresse, pas de raison de
        dupliquer le contenu sur chaque page).
   ============================= -->
-  <section id="contact" class="section section-alt">
+  <section id="contact" class="section">
     <div class="container" style="text-align:center;">
       <div class="section-head" data-animate style="margin-bottom:1.75rem;">
-        <span class="section-tag">03 — Contact</span>
+        <span class="section-tag">05 — Contact</span>
         <h2>On en discute ?</h2>
         <p class="section-sub">
           Disponible pour un stage, une alternance ou toute question.
@@ -352,6 +597,9 @@
         <nav class="footer-nav">
           <a href="#accueil">Accueil</a>
           <a href="#apropos">À propos</a>
+          <a href="#stage">Stage</a>
+          <a href="#competences">Compétences</a>
+          <a href="#cv">CV</a>
           <a href="#contact">Contact</a>
           <a href="../slam/">Parcours SLAM (1ère année)</a>
         </nav>

@@ -1,0 +1,8 @@
+# Pages publiques indexables ; administration, API et documents bruts exclus.
+User-agent: *
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /viewer.php
+Disallow: /files/
+Disallow: /cours/

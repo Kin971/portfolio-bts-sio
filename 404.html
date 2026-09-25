@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <!-- server.py remplace ce <base> par autant de « ../ » que nécessaire :
+       la page peut être servie à n'importe quelle profondeur d'URL. -->
+  <base href="./">
+  <title>Page introuvable — Raphael TILACDHARY JEAN</title>
+  <meta name="theme-color" content="#060809" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="404">
+
+  <main class="notfound">
+    <div class="notfound-term">
+      <div class="code-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="code-filename">bash — 404</span>
+      </div>
+      <div class="notfound-body">
+        <p><span class="notfound-prompt">visiteur@portfolio:~$</span> cd <span id="nfPath">page-demandee</span></p>
+        <p class="notfound-err">bash: cd: <span id="nfPath2">page-demandee</span>: Aucun fichier ou dossier de ce type</p>
+        <p class="notfound-code">404</p>
+        <p class="notfound-hint">Cette page n'existe pas (ou plus). Quelques chemins qui, eux, fonctionnent :</p>
+        <nav class="notfound-links">
+          <a href="sisr/" class="btn btn-primary">🎓 Parcours SISR</a>
+          <a href="slam/" class="btn btn-outline">📚 Parcours SLAM</a>
+          <a href="contact/" class="btn btn-outline">✉️ Contact</a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Affiche le chemin demandé dans la « commande » (textContent : aucun
+    // risque d'injection, même avec une URL fabriquée).
+    (function () {
+      var p = location.pathname;
+      try { p = decodeURIComponent(p); } catch (e) { /* URL mal encodée : affichée brute */ }
+      p = p.replace(/^\/+|\/+$/g, '') || '/';
+      if (p.length > 60) p = '…' + p.slice(-59);
+      document.getElementById('nfPath').textContent = p;
+      document.getElementById('nfPath2').textContent = p;
+    })();
+  </script>
+</body>
+</html>

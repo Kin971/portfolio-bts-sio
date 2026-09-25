@@ -1,12 +1,12 @@
 {
   "theme": {
-    "primary": "#388bfd",
-    "primaryH": "#58a6ff",
-    "accent": "#3fb950",
-    "bg": "#0d1117",
-    "surface": "#161b22",
-    "gradientStart": "#388bfd",
-    "gradientEnd": "#7c3aed"
+    "primary": "#39ff6a",
+    "primaryH": "#6dffa0",
+    "accent": "#34e5ff",
+    "bg": "#060809",
+    "surface": "#0d1114",
+    "gradientStart": "#39ff6a",
+    "gradientEnd": "#34e5ff"
   },
   "hero": {
     "badge": "🎓 BTS SIO · Option SLAM · 1ère Année",
@@ -73,8 +73,8 @@
         }
       ],
       "competences": [
-        "B2.1 Développement applicatif",
-        "B2.5 Conception logicielle"
+        "B2.1 Concevoir et développer une solution applicative",
+        "B2.2 Maintenance corrective / évolutive"
       ],
       "links": [
         {
@@ -121,8 +121,8 @@
         }
       ],
       "competences": [
-        "B2.2 Gestion des données",
-        "B2.6 Sécurité (GRANT/REVOKE)"
+        "B2.3 Gérer les données",
+        "B3.5 Sécurité applicative (GRANT/REVOKE)"
       ],
       "links": [
         {
@@ -163,8 +163,8 @@
         }
       ],
       "competences": [
-        "B2.1 Algorithmique de base",
-        "B6 Développement professionnel"
+        "B2.1 Algorithmique et développement",
+        "B1.6 Développement professionnel"
       ],
       "links": [
         {

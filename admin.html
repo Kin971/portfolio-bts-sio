@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Admin — Portfolio Raphael TILACDHARY JEAN</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -438,7 +439,9 @@ async function doLogin() {
       sessionStorage.setItem('admin_token', token);
       await loadAndShowAdmin();
     } else {
-      document.getElementById('loginError').textContent = '❌ Identifiant ou mot de passe incorrect';
+      // Le serveur précise la raison (identifiants faux, ou trop de
+      // tentatives : blocage temporaire anti-bruteforce, HTTP 429).
+      document.getElementById('loginError').textContent = '❌ ' + (data.error || 'Identifiant ou mot de passe incorrect');
     }
   } catch(e) {
     document.getElementById('loginError').textContent = '❌ Erreur de connexion';
@@ -702,7 +705,7 @@ function openProjModal(idx) {
   const linksHtml = (p.links||[]).map(l => `
     <div class="dyn-row" style="flex-wrap:wrap;gap:6px">
       <input class="form-input link-lbl" placeholder="Libellé (ex: 📄 app.py)" value="${escAttr(l.label||'')}">
-      <input class="form-input link-path" placeholder="Chemin Windows" value="${escAttr(l.path||'')}">
+      <input class="form-input link-path" placeholder="Chemin dans cours/ (ex : BTS SIO COURS/…/fichier.java)" value="${escAttr(l.path||'')}">
       <select class="form-select link-style" style="width:auto;flex:0 0 auto">
         <option value="main" ${l.style==='main'?'selected':''}>Principal</option>
         <option value="sec" ${l.style==='sec'?'selected':''}>Secondaire</option>
@@ -806,7 +809,7 @@ function addLinkRow() {
   const row = document.createElement('div');
   row.className = 'dyn-row';
   row.style.cssText = 'flex-wrap:wrap;gap:6px';
-  row.innerHTML = `<input class="form-input link-lbl" placeholder="Libellé"><input class="form-input link-path" placeholder="Chemin Windows"><select class="form-select link-style" style="width:auto;flex:0 0 auto"><option value="main">Principal</option><option value="sec">Secondaire</option></select><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
+  row.innerHTML = `<input class="form-input link-lbl" placeholder="Libellé"><input class="form-input link-path" placeholder="Chemin dans cours/ (ex : BTS SIO COURS/…/fichier.java)"><select class="form-select link-style" style="width:auto;flex:0 0 auto"><option value="main">Principal</option><option value="sec">Secondaire</option></select><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
   document.getElementById('linkRows').appendChild(row);
 }
 
@@ -863,6 +866,7 @@ const THEME_FIELDS = [
 ];
 
 const PRESETS = {
+  'Terminal (défaut)': { primary:'#39ff6a', primaryH:'#6dffa0', accent:'#34e5ff', bg:'#060809', surface:'#0d1114', gradientStart:'#39ff6a', gradientEnd:'#34e5ff' },
   'GitHub Dark': { primary:'#388bfd', primaryH:'#58a6ff', accent:'#3fb950', bg:'#0d1117', surface:'#161b22', gradientStart:'#388bfd', gradientEnd:'#7c3aed' },
   'Violet':      { primary:'#a855f7', primaryH:'#c084fc', accent:'#22d3ee', bg:'#0f0f1a', surface:'#1a1a2e', gradientStart:'#a855f7', gradientEnd:'#ec4899' },
   'Vert':        { primary:'#22c55e', primaryH:'#4ade80', accent:'#f59e0b', bg:'#0a1a0f', surface:'#0f2518', gradientStart:'#22c55e', gradientEnd:'#0ea5e9' },
@@ -1087,7 +1091,7 @@ function renderSecurity() {
       </div>
       <div class="form-group">
         <label class="form-label">Nouveau mot de passe</label>
-        <input id="secNew" class="form-input" type="password" placeholder="Laisser vide pour ne pas changer" autocomplete="new-password">
+        <input id="secNew" class="form-input" type="password" placeholder="12 caractères minimum — laisser vide pour ne pas changer" autocomplete="new-password">
       </div>
       <div class="form-group">
         <label class="form-label">Confirmer</label>
@@ -1115,7 +1119,8 @@ async function savePassword() {
     new_password: nw || current,
   }).catch(() => null);
   if (res && res.ok) {
-    toast('✅ Identifiants mis à jour', 'success');
+    config.admin = { ...(config.admin || {}), username: newUser || (config.admin || {}).username };
+    toast('✅ Identifiants mis à jour — les autres sessions ont été déconnectées', 'success');
     document.getElementById('secCurrent').value = '';
     document.getElementById('secNew').value = '';
     document.getElementById('secConfirm').value = '';

@@ -293,27 +293,35 @@
 
   /* ===================================================================
      08. RECHARGEMENT AUTOMATIQUE
-     Interroge /api/site-version toutes les 4s (voir server.py — calcule la
-     date de modification la plus récente parmi les fichiers du site, donc
-     rien à incrémenter à la main à chaque déploiement). Si la version a
-     changé depuis l'ouverture de la page, affiche une bannière puis
-     recharge tout seul — pas besoin que le visiteur rafraîchisse.
+     Interroge /api/site-version (voir server.py — calcule la date de
+     modification la plus récente parmi les fichiers du site, donc rien à
+     incrémenter à la main à chaque déploiement).
+     - En local (localhost) : sondage toutes les 4 s et rechargement
+       automatique — pratique pendant qu'on édite le site.
+     - En ligne : sondage espacé (60 s) et bannière avec un bouton
+       « Recharger » : on ne recharge JAMAIS de force la page d'un
+       visiteur en pleine lecture (un jury, un recruteur…).
      Coupé si l'onglet est en arrière-plan (pas de sondage inutile) et
      repris à son retour au premier plan.
      =================================================================== */
   function initLiveReload() {
-    const POLL_MS = 4000;
+    const IS_LOCAL = ['localhost', '127.0.0.1', '::1', '[::1]'].includes(location.hostname);
+    const POLL_MS = IS_LOCAL ? 4000 : 60000;
     let knownVersion = null;
     let timer = null;
 
-    function showBannerAndReload() {
+    function onNewVersion() {
       const banner = document.getElementById('updateBanner');
-      if (banner) {
+      if (!banner) { if (IS_LOCAL) location.reload(); return; }
+      if (IS_LOCAL) {
         banner.classList.add('show');
         setTimeout(() => location.reload(), 1100);
-      } else {
-        location.reload();
+        return;
       }
+      banner.innerHTML = '<span>Une nouvelle version du portfolio est en ligne.</span>' +
+        '<button type="button" class="update-reload">Recharger</button>';
+      banner.querySelector('button').addEventListener('click', () => location.reload());
+      banner.classList.add('show');
     }
 
     async function check() {
@@ -327,7 +335,7 @@
         }
         if (data.v !== knownVersion) {
           clearInterval(timer);
-          showBannerAndReload();
+          onNewVersion();
         }
       } catch {
         // Silencieux : une requête ratée (réseau, redémarrage du serveur
@@ -340,7 +348,7 @@
     timer = setInterval(() => { if (!document.hidden) check(); }, POLL_MS);
 
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) check();
+      if (!document.hidden && knownVersion !== null) check();
     });
   }
 
