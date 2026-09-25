@@ -350,6 +350,7 @@ body::after {
 .nav-logo {
   font-size: 1.05rem;
   font-weight: 700;
+  white-space: nowrap;
   color: var(--text) !important;
   letter-spacing: -0.02em;
   position: relative;
@@ -959,10 +960,10 @@ button.plink { font-size: 0.76rem; }
   backdrop-filter: blur(6px);
   z-index: 500;
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.2s ease;
+  opacity: 0; pointer-events: none; visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
 }
-.cm-overlay.active { opacity: 1; pointer-events: all; }
+.cm-overlay.active { opacity: 1; pointer-events: all; visibility: visible; transition: opacity 0.2s ease, visibility 0s; }
 .cm-box {
   background: var(--bg-2);
   border: 1px solid var(--border-2);
@@ -996,6 +997,7 @@ button.plink { font-size: 0.76rem; }
   font-size: 0.68rem; font-weight: 700;
   white-space: nowrap; text-transform: uppercase; letter-spacing: 0.04em;
 }
+.cm-badge:empty { display: none; }
 .cm-meta { font-family: var(--font); font-size: 0.74rem; color: var(--muted); white-space: nowrap; }
 .cm-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
 .cm-btn {
@@ -1156,8 +1158,16 @@ button.cm-dir-item { width: 100%; background: none; font: inherit; color: inheri
 .ref-row-title { flex: 1; font-weight: 700; font-size: 0.92rem; }
 .ref-row-chevron { color: var(--muted); transition: transform var(--trans), color var(--trans); flex-shrink: 0; }
 .ref-row-wrap.open .ref-row-chevron { transform: rotate(90deg); color: var(--neon); }
-.ref-row-details { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-.ref-row-wrap.open .ref-row-details { max-height: 320px; }
+/* visibility en plus de max-height : fermé, le contenu (liens, boutons de
+   preuves) sort aussi de l'ordre de tabulation et des lecteurs d'écran. */
+.ref-row-details {
+  max-height: 0; overflow: hidden; visibility: hidden;
+  transition: max-height 0.35s ease, visibility 0s linear 0.35s;
+}
+.ref-row-wrap.open .ref-row-details {
+  max-height: 320px; visibility: visible;
+  transition: max-height 0.35s ease, visibility 0s;
+}
 .ref-row-details-inner { padding: 0 1.2rem 1.2rem 4.35rem; }
 .ref-row-details-inner p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.75rem; }
 
@@ -1303,7 +1313,8 @@ button.cm-dir-item { width: 100%; background: none; font: inherit; color: inheri
   box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px var(--neon-glow);
   transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
 }
-#updateBanner.show { transform: translate(-50%, 0); }
+#updateBanner { visibility: hidden; }
+#updateBanner.show { transform: translate(-50%, 0); visibility: visible; }
 #updateBanner .spin {
   width: 13px; height: 13px;
   border: 2px solid var(--border-2);
@@ -1485,7 +1496,7 @@ button.cm-dir-item { width: 100%; background: none; font: inherit; color: inheri
 .hub-menu-item:hover { background: var(--surface-2); padding-left: 1.75rem; }
 .hub-menu-item:hover .hub-menu-arrow { transform: translateX(4px); opacity: 1; }
 .hub-menu-num {
-  font-family: var(--font); font-size: 0.72rem; color: var(--border-2);
+  font-family: var(--font); font-size: 0.72rem; color: #5b7569;
   width: 1.6rem; flex-shrink: 0;
 }
 .hub-menu-icon {
@@ -1510,7 +1521,10 @@ button.cm-dir-item { width: 100%; background: none; font: inherit; color: inheri
   .cyber-grid    { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 768px) {
+/* Menu hamburger jusqu'à 1080px (et plus seulement 768px) : entre 769 et
+   ~1015px, les 7 liens des pages SLAM ne tenaient pas sur une ligne — le
+   logo passait sur deux lignes et la barre doublait de hauteur. */
+@media (max-width: 1080px) {
   .nav-toggle { display: flex; }
   .nav-links {
     position: absolute; top: 100%; left: 0; right: 0;
@@ -1520,7 +1534,9 @@ button.cm-dir-item { width: 100%; background: none; font: inherit; color: inheri
   .nav-links.open { display: flex; }
   .nav-link { width: 100%; display: block; }
   .nav-cta  { margin-left: 0; }
+}
 
+@media (max-width: 768px) {
   .section { padding: 3rem 0; }
   .section-head h2 { font-size: 1.6rem; }
   .section-sub { font-size: 0.88rem; }

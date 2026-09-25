@@ -155,15 +155,18 @@ function applyConfigToDOM(cfg) {
   setText('profileFormation', a.formation);
   setText('profileYear',      a.year);
   setText('profileSearch',    a.search);
-  if (a.email) {
+  // L'adresse d'exemple de config.example.json (votre@email.tld) ne doit
+  // jamais remplacer la vraie adresse écrite dans le HTML.
+  const email = a.email && !/\.tld$/i.test(a.email) ? a.email : '';
+  if (email) {
     const el = document.getElementById('profileEmail');
-    if (el) { el.textContent = a.email; el.href = 'mailto:' + a.email; }
+    if (el) { el.textContent = email; el.href = 'mailto:' + email; }
   }
 
   /* ── Contact ── */
-  if (a.email) {
-    setLink('contactEmail',    'mailto:' + a.email, a.email);
-    setLink('contactEmailBtn', 'mailto:' + a.email + '?subject=Contact Portfolio BTS SIO', null);
+  if (email) {
+    setLink('contactEmail',    'mailto:' + email, email);
+    setLink('contactEmailBtn', 'mailto:' + email + '?subject=Contact Portfolio BTS SIO', null);
   }
   setText('contactLocation', a.location);
   if (a.linkedin) setLink('contactLinkedin', a.linkedin, a.linkedin);
@@ -509,9 +512,25 @@ document.addEventListener('DOMContentLoaded', () => {
     openFile(el);
   });
 
-  /* ─── Fermer le modal avec Échap ─── */
+  /* ─── Clavier : Échap ferme le modal (ou le menu mobile) ; Tab reste
+     piégé dans le modal ouvert au lieu de repartir dans la page derrière. */
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    const modal = document.getElementById('codeModal');
+    const modalOpen = modal?.classList.contains('active');
+    if (e.key === 'Escape') {
+      if (modalOpen) closeModal();
+      else if (navLinksEl.classList.contains('open')) { setMenu(false); navToggle.focus(); }
+      return;
+    }
+    if (e.key === 'Tab' && modalOpen) {
+      const items = [...modal.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')]
+        .filter(el => el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!modal.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
   });
 
   /* ─── Barre de progression de lecture ─── */
@@ -568,9 +587,12 @@ document.addEventListener('DOMContentLoaded', () => {
     navToggle.setAttribute('aria-expanded', String(open));
   };
   navToggle.addEventListener('click', () => setMenu(!navLinksEl.classList.contains('open')));
-  // Fermer le menu en cliquant sur un lien
+  // Fermer le menu en cliquant sur un lien, ou n'importe où en dehors
   navLinksEl.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => setMenu(false));
+  });
+  document.addEventListener('click', e => {
+    if (navLinksEl.classList.contains('open') && !navbar.contains(e.target)) setMenu(false);
   });
 
   /* ─── Retour en haut ─── */
@@ -720,9 +742,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabBtns   = document.querySelectorAll('.tab');
   const tabPanels = document.querySelectorAll('.tab-panel');
 
-  tabBtns.forEach(btn => {
+  tabBtns.forEach((btn, i) => {
     btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-controls', btn.dataset.tab);
     btn.setAttribute('aria-selected', String(btn.classList.contains('active')));
+    // Flèches gauche/droite : passer d'un onglet à l'autre (motif ARIA « tabs »)
+    btn.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const next = tabBtns[(i + (e.key === 'ArrowRight' ? 1 : tabBtns.length - 1)) % tabBtns.length];
+      next.focus();
+      next.click();
+    });
     btn.addEventListener('click', () => {
       // Bouton actif
       tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
@@ -748,7 +779,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── Smooth scroll pour tous les liens ancres ─── */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
-      const target = document.querySelector(link.getAttribute('href'));
+      const id = link.getAttribute('href').slice(1);
+      // getElementById plutôt que querySelector : « # » seul (ou un id
+      // exotique) levait une SyntaxError au clic.
+      const target = id && document.getElementById(id);
       if (target) {
         e.preventDefault();
         const navH = navbar.offsetHeight;
