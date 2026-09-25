@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio BTS SIO SISR — Raphael TILACDHARY JEAN | Réseaux, Systèmes, Cybersécurité" />
+  <title>Raphael TILACDHARY JEAN — Portfolio BTS SIO SISR</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="sisr">
+
+  <!-- Fond animé (pluie de caractères) — voir js/effects.js -->
+  <canvas id="matrixCanvas"></canvas>
+
+  <!-- Séquence de démarrage façon terminal, une fois par session -->
+  <div id="bootScreen">
+    <div class="boot-box"></div>
+    <button class="boot-skip" type="button">passer ⏭</button>
+  </div>
+
+  <!-- Panneau de transition entre pages (SISR ↔ SLAM) — voir js/effects.js -->
+  <div id="pageTransition">
+    <span class="pt-text">chargement…</span>
+  </div>
+
+  <!-- Bannière de rechargement automatique — voir js/effects.js -->
+  <div id="updateBanner">
+    <span class="spin"></span>
+    <span>Mise à jour détectée — rechargement…</span>
+  </div>
+
+  <!-- Barre de progression de lecture (scroll) -->
+  <div id="progress-bar"></div>
+
+  <!-- ============================
+       NAVIGATION
+  ============================= -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#accueil" class="nav-logo">
+        <span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#accueil" class="nav-link">Accueil</a></li>
+        <li><a href="#apropos" class="nav-link">À propos</a></li>
+        <li><a href="#cv" class="nav-link">CV</a></li>
+        <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="../slam/" class="nav-link" title="Voir le parcours 1ère année (SLAM)">📚 Parcours SLAM →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================
+       HERO
+  ============================= -->
+  <section id="accueil" class="hero">
+    <div class="hero-bg">
+      <div class="hero-dots"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="container hero-container hero-solo">
+      <div class="hero-text" data-animate>
+        <span class="hero-badge">🎓 BTS SIO · Option SISR · 2e Année</span>
+        <h1 class="hero-title">
+          <span class="hero-hello">Salut, je suis</span>
+          <span class="gradient-text hero-name">Raphael TILACDHARY JEAN</span>
+        </h1>
+        <p class="hero-desc">
+          Après une 1ère année en option SLAM (développement logiciel), je poursuis mon BTS SIO
+          en option SISR — administration systèmes, réseaux et cybersécurité. Cette page se
+          construit au fil de l'année avec mes nouveaux projets.
+        </p>
+        <div class="hero-btns">
+          <a href="#cv" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+            Voir mon CV
+          </a>
+        </div>
+      </div>
+    </div>
+    <a href="#apropos" class="scroll-arrow" aria-label="Défiler">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ============================
+       À PROPOS
+  ============================= -->
+  <section id="apropos" class="section">
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="section-tag">01 — À propos</span>
+        <h2>Où j'en suis</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-left" data-animate>
+          <div class="profile-card">
+            <div class="profile-row">
+              <span>📍</span><span>Localisation</span><strong>Basse-Terre, Guadeloupe</strong>
+            </div>
+            <div class="profile-row">
+              <span>🏫</span><span>École</span><strong>Les Persévérants — Basse-Terre</strong>
+            </div>
+            <div class="profile-row">
+              <span>🎓</span><span>Formation</span><strong>BTS SIO — Option SISR</strong>
+            </div>
+            <div class="profile-row">
+              <span>📅</span><span>Année</span><strong>2e année</strong>
+            </div>
+            <div class="profile-row">
+              <span>✉️</span><span>Email</span>
+              <strong><a href="mailto:raphtil971@gmail.com">raphtil971@gmail.com</a></strong>
+            </div>
+            <div class="profile-row">
+              <span>💼</span><span>Recherche</span><strong>Stage (à préciser)</strong>
+            </div>
+          </div>
+        </div>
+        <div class="about-right" data-animate data-delay="150">
+          <p class="about-intro">
+            J'ai démarré mon BTS SIO en option <strong>SLAM</strong> (développement logiciel) — retrouvez
+            l'ensemble de ces projets sur <a href="../slam/">la page dédiée à ma 1ère année</a>. Je poursuis
+            maintenant en option <strong>SISR</strong> : administration systèmes et réseaux, sécurité des
+            infrastructures.
+          </p>
+          <p>
+            Cette page se construira avec mes projets et travaux pratiques au fur et à mesure de l'année —
+            revenez y jeter un œil régulièrement.
+          </p>
+          <div class="tags">
+            <span class="tag">🖧 Réseaux</span>
+            <span class="tag">🔒 Cybersécurité</span>
+            <span class="tag">🐧 Linux</span>
+            <span class="tag">🧱 pfSense</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       CV — présentation graphique (même contenu que le fichier .docx
+       téléchargeable, mis en page ici plutôt qu'un simple lien).
+  ============================= -->
+  <section id="cv" class="section section-alt">
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="section-tag">02 — CV</span>
+        <h2>Mon CV en un coup d'œil</h2>
+        <p class="section-sub">Le contenu exact du fichier téléchargeable, juste mieux mis en page.</p>
+      </div>
+
+      <div class="cv-card" data-animate>
+        <div class="cv-card-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="cv-card-title">CV_Raphael_TILACDHARY-JEAN.docx</span>
+        </div>
+        <div class="cv-body">
+
+          <div class="cv-top">
+            <div>
+              <div class="cv-name">Raphaël TILACDHARY-JEAN</div>
+              <div class="cv-role">Étudiant BTS SIO – Option SISR</div>
+            </div>
+            <div class="cv-contacts">
+              <a href="mailto:raphtil971@gmail.com">✉️ raphtil971@gmail.com</a>
+              <a href="tel:+590690312297">📞 06 90 31 22 97</a>
+              <span>📍 Rivière des Pères, Basse-Terre</span>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Profil</div>
+            <p class="cv-profile-text">
+              Étudiant en première année de BTS Services Informatiques aux Organisations (option SISR)
+              au lycée Les Persévérants, en Guadeloupe. J'ai réalisé un stage au service informatique de
+              la mairie de Gourbeyre, où j'ai pu intervenir sur le support et le dépannage des utilisateurs,
+              le câblage réseau et une première découverte de l'administration réseau avec pfSense. Curieux
+              et autonome, je mène en parallèle plusieurs projets techniques personnels. Je recherche une
+              alternance ou un stage pour ma deuxième année de BTS SIO.
+            </p>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-tag-groups">
+              <div>
+                <div class="cv-tag-group-label">Compétences techniques</div>
+                <div class="tags">
+                  <span class="tag">Administration réseau (IP, sous-réseaux, DHCP)</span>
+                  <span class="tag">Pare-feu / routeur pfSense</span>
+                  <span class="tag">Câblage Ethernet (RJ45)</span>
+                  <span class="tag">Support &amp; dépannage utilisateurs</span>
+                  <span class="tag">Windows &amp; Linux</span>
+                  <span class="tag">Python (bases)</span>
+                  <span class="tag">Administration VPS</span>
+                </div>
+              </div>
+              <div>
+                <div class="cv-tag-group-label">Savoir-être</div>
+                <div class="tags">
+                  <span class="tag">Travail en équipe</span>
+                  <span class="tag">Motivation</span>
+                  <span class="tag">Respect des consignes</span>
+                  <span class="tag">Polyvalence</span>
+                </div>
+              </div>
+              <div>
+                <div class="cv-tag-group-label">Langues</div>
+                <div class="tags">
+                  <span class="tag">🇬🇧 Anglais — courant</span>
+                  <span class="tag">🇭🇹 Créole — courant</span>
+                </div>
+              </div>
+              <div>
+                <div class="cv-tag-group-label">Centres d'intérêt</div>
+                <div class="tags">
+                  <span class="tag">Cuisine</span>
+                  <span class="tag">Musique</span>
+                  <span class="tag">Informatique &amp; réseau</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Expériences</div>
+            <div class="cv-timeline">
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">Stage service informatique</span>
+                  <span class="cv-timeline-date">Mai – Juin 2026</span>
+                </div>
+                <div class="cv-timeline-sub">Mairie de Gourbeyre, Basse-Terre — stage BTS SIO 1ʳᵉ année, du 18/05 au 19/06/2026</div>
+                <ul class="cv-timeline-list">
+                  <li>Prise en charge des interventions de support et de dépannage : postes de travail, imprimantes et copieurs multifonctions</li>
+                  <li>Diagnostic et résolution des incidents réseau, avec une autonomie progressive au fil du stage</li>
+                  <li>Participation à un chantier de câblage réseau (tirage, raccordement, tests de liaisons Ethernet) au stade municipal</li>
+                  <li>Découverte de l'administration réseau avec pfSense : adressage, sous-réseaux, configuration DHCP</li>
+                </ul>
+              </div>
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">Assistant de cuisine</span>
+                  <span class="cv-timeline-date">2022</span>
+                </div>
+                <div class="cv-timeline-sub">L'Auberge Lardenoy, Basse-Terre — stage, poste de commis</div>
+                <ul class="cv-timeline-list">
+                  <li>Tâches préliminaires : lavage, épluchage, découpe des ingrédients</li>
+                  <li>Nettoyage et entretien des équipements dans le respect des règles d'hygiène et de sécurité</li>
+                  <li>Travail en équipe avec les autres commis de cuisine</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Projets personnels</div>
+            <ul class="cv-projects-list">
+              <li><strong>Bot Discord de modération</strong> — développement en Node.js, hébergé sur un serveur personnel</li>
+              <li><strong>Administration d'un serveur VPS</strong> — hébergement de services, gestion des accès et de la configuration réseau</li>
+            </ul>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Formations</div>
+            <div class="cv-timeline">
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">BTS SIO, option SISR (2ᵉ année)</span>
+                  <span class="cv-timeline-date">2026 – 2027</span>
+                </div>
+                <div class="cv-timeline-sub">Lycée Les Persévérants, Basse-Terre</div>
+              </div>
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">BTS SIO, option SLAM (1ʳᵉ année)</span>
+                  <span class="cv-timeline-date">2025 – 2026</span>
+                </div>
+                <div class="cv-timeline-sub">Lycée Les Persévérants, Basse-Terre</div>
+              </div>
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">Baccalauréat STMG</span>
+                  <span class="cv-timeline-date">2024 – 2025</span>
+                </div>
+                <div class="cv-timeline-sub">Lycée Gerville-Réache, Basse-Terre</div>
+              </div>
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">Brevet des collèges — mention Assez Bien</span>
+                  <span class="cv-timeline-date">2021 – 2022</span>
+                </div>
+                <div class="cv-timeline-sub">Collège Les Persévérants, Basse-Terre</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-footer">
+            <span class="cv-footer-note">Document original : .docx, formaté pour l'impression.</span>
+            <a href="../files/CV_Raphael_TILACDHARY-JEAN.docx" download class="btn btn-outline">
+              📄 Télécharger le .docx original
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       CONTACT — renvoi vers la page dédiée /contact/, commune aux deux
+       parcours (SLAM et SISR partagent la même adresse, pas de raison de
+       dupliquer le contenu sur chaque page).
+  ============================= -->
+  <section id="contact" class="section section-alt">
+    <div class="container" style="text-align:center;">
+      <div class="section-head" data-animate style="margin-bottom:1.75rem;">
+        <span class="section-tag">03 — Contact</span>
+        <h2>On en discute ?</h2>
+        <p class="section-sub">
+          Disponible pour un stage, une alternance ou toute question.
+        </p>
+      </div>
+      <div data-animate>
+        <a href="../contact/" class="btn btn-primary">
+          ✉️ Voir mes coordonnées
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span>
+          <p>Portfolio BTS SIO SISR — 2e Année</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="#accueil">Accueil</a>
+          <a href="#apropos">À propos</a>
+          <a href="#contact">Contact</a>
+          <a href="../slam/">Parcours SLAM (1ère année)</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Raphael TILACDHARY JEAN — BTS SIO SISR</span>
+        <span>Fait avec 💙 en HTML / CSS</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bouton retour en haut -->
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/effects.js"></script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio BTS SIO SLAM — Raphael TILACDHARY JEAN | Développement, Bases de données, Cybersécurité" />
+  <title>Raphael TILACDHARY JEAN — Portfolio BTS SIO SLAM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="../config.js"></script>
+</head>
+<body data-page="slam">
+
+  <canvas id="matrixCanvas"></canvas>
+
+  <div id="bootScreen">
+    <div class="boot-box"></div>
+    <button class="boot-skip" type="button">passer ⏭</button>
+  </div>
+
+  <div id="pageTransition"><span class="pt-text">chargement…</span></div>
+
+  <div id="updateBanner">
+    <span class="spin"></span>
+    <span>Mise à jour détectée — rechargement…</span>
+  </div>
+
+  <div id="progress-bar"></div>
+
+  <!-- ============================
+       NAVIGATION
+  ============================= -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#accueil" class="nav-logo">
+        <span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="apropos/" class="nav-link">À propos</a></li>
+        <li><a href="competences/" class="nav-link">Compétences</a></li>
+        <li><a href="projets/" class="nav-link">Projets</a></li>
+        <li><a href="referentiel/" class="nav-link">Référentiel</a></li>
+        <li><a href="cybersecurite/" class="nav-link">Cybersécurité</a></li>
+        <li><a href="../contact/" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="../sisr/" class="nav-link" title="Voir le parcours 2e année (SISR)">🎓 SISR →</a></li>
+        <li>
+          <button class="nav-link nav-cfg" onclick="openConfig()" title="Configurer le chemin racine des fichiers">
+            ⚙️ Chemin
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================
+       HERO
+  ============================= -->
+  <section id="accueil" class="hero">
+    <div class="hero-bg">
+      <div class="hero-dots"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="container hero-container">
+      <div class="hero-text" data-animate>
+        <span id="heroBadge" class="hero-badge">🎓 BTS SIO · Option SLAM · 1ère Année</span>
+        <h1 class="hero-title">
+          <span class="hero-hello">Salut, je suis</span>
+          <span id="heroName" class="gradient-text hero-name">Raphael</span>
+        </h1>
+        <div class="hero-typewriter">
+          <span id="typewriter"></span><span class="cursor">|</span>
+        </div>
+        <p class="hero-desc">
+          Étudiant passionné par le développement logiciel, les bases de données et la cybersécurité.
+          Je conçois des applications web complètes, maîtrise la POO Java et explore activement la sécurité informatique.
+        </p>
+        <div class="hero-btns">
+          <a href="projets/" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+            Voir mes projets
+          </a>
+          <a href="../files/CV_Raphael_TILACDHARY-JEAN.docx" download class="btn btn-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Télécharger mon CV
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num" data-target="5">0</span><span class="stat-lbl">Projets</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-num" data-target="6">0</span><span class="stat-lbl">Langages</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-num" data-target="1">0</span><span class="stat-lbl">An de BTS</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card" data-animate data-delay="200">
+        <div class="code-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="code-filename">ZarmyPrincipal.java</span>
+        </div>
+        <pre class="code-body"><code><span class="kw">public class</span> ZarmyPrincipal {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        Personnage hero = <span class="kw">new</span> Guerrier(<span class="str">"Aldric"</span>);
+        <span class="cm">// Pattern Stratégie : comportements interchangeables</span>
+        hero.<span class="fn">setCombatStrategie</span>(<span class="kw">new</span> AttaqueMelee());
+        hero.<span class="fn">agir</span>();
+    }
+}
+
+<span class="kw">abstract class</span> Personnage {
+    <span class="kw">protected</span> CombatStrategie strategie;
+    <span class="kw">public void</span> <span class="fn">setCombatStrategie</span>(CombatStrategie s) {
+        <span class="kw">this</span>.strategie = s;
+    }
+}</code></pre>
+      </div>
+    </div>
+    <a href="#sommaire" class="scroll-arrow" aria-label="Défiler">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ============================
+       SOMMAIRE — chaque partie vit sur sa propre page.
+  ============================= -->
+  <section id="sommaire" class="section">
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="section-tag">01 — Sommaire</span>
+        <h2>Explorer le parcours SLAM</h2>
+        <p class="section-sub">Cinq pages, une par sujet — plus simple à parcourir qu'un long défilement.</p>
+      </div>
+
+      <div class="hub-menu" data-animate>
+        <div class="hub-menu-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="hub-menu-title">ls -la ./parcours-slam</span>
+        </div>
+        <div class="hub-menu-list">
+
+          <a href="apropos/" class="hub-menu-item">
+            <span class="hub-menu-num">01</span>
+            <span class="hub-menu-icon">👤</span>
+            <span class="hub-menu-body">
+              <span class="hub-menu-name">À propos</span>
+              <span class="hub-menu-desc">qui je suis, mon parcours, ce qui me motive</span>
+            </span>
+            <svg class="hub-menu-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="competences/" class="hub-menu-item">
+            <span class="hub-menu-num">02</span>
+            <span class="hub-menu-icon">📊</span>
+            <span class="hub-menu-body">
+              <span class="hub-menu-name">Compétences</span>
+              <span class="hub-menu-desc">langages, outils, concepts maîtrisés — vue tableau de bord</span>
+            </span>
+            <svg class="hub-menu-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="projets/" class="hub-menu-item">
+            <span class="hub-menu-num">03</span>
+            <span class="hub-menu-icon">⚔️</span>
+            <span class="hub-menu-body">
+              <span class="hub-menu-name">Projets</span>
+              <span class="hub-menu-desc">ZARMY en vedette, et le reste de mes réalisations</span>
+            </span>
+            <svg class="hub-menu-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="referentiel/" class="hub-menu-item">
+            <span class="hub-menu-num">04</span>
+            <span class="hub-menu-icon">📋</span>
+            <span class="hub-menu-body">
+              <span class="hub-menu-name">Référentiel</span>
+              <span class="hub-menu-desc">correspondance officielle BTS SIO SLAM — bloc par bloc</span>
+            </span>
+            <svg class="hub-menu-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="cybersecurite/" class="hub-menu-item">
+            <span class="hub-menu-num">05</span>
+            <span class="hub-menu-icon">🔒</span>
+            <span class="hub-menu-body">
+              <span class="hub-menu-name">Cybersécurité</span>
+              <span class="hub-menu-desc">cryptologie, cracking, authentification — dossier technique</span>
+            </span>
+            <svg class="hub-menu-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       CONTACT
+  ============================= -->
+  <section id="contact" class="section section-alt">
+    <div class="container" style="text-align:center;">
+      <div class="section-head" data-animate style="margin-bottom:1.75rem;">
+        <span class="section-tag">06 — Contact</span>
+        <h2>On en discute ?</h2>
+        <p class="section-sub">Disponible pour un stage, une alternance ou toute question.</p>
+      </div>
+      <div class="hero-btns" data-animate style="justify-content:center;">
+        <a href="../contact/" class="btn btn-primary">✉️ Voir mes coordonnées</a>
+        <button class="btn btn-outline" onclick="openFile(this)"
+          data-path="BTS SIO COURS\1ere Année\AP1-Atellers de Professionnalistion\Lettre de motivation.pdf">
+          📄 Lettre de motivation
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span>
+          <p>Portfolio BTS SIO SLAM — 1ère Année</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="apropos/">À propos</a>
+          <a href="competences/">Compétences</a>
+          <a href="projets/">Projets</a>
+          <a href="referentiel/">Référentiel</a>
+          <a href="cybersecurite/">Cybersécurité</a>
+          <a href="../contact/">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Raphael TILACDHARY JEAN — BTS SIO SLAM</span>
+        <span>Fait avec 💙 en HTML / CSS / JS</span>
+      </div>
+    </div>
+  </footer>
+
+  <a id="adminBtn" href="../admin" target="_blank" title="Panneau d'administration" aria-label="Admin">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+    </svg>
+    <span class="admin-btn-label">Admin</span>
+  </a>
+
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <div id="toast"></div>
+
+  <!-- Panneau de configuration -->
+  <div id="cfgModal" class="cm-overlay" onclick="if(event.target===this)closeConfig()">
+    <div class="cfg-box">
+      <div class="cm-header">
+        <div class="cm-title"><span>⚙️</span><span class="cm-fname">Configuration — Chemin racine</span></div>
+        <button class="cm-btn cm-close-btn" onclick="closeConfig()">✕</button>
+      </div>
+      <div class="cfg-body">
+        <p class="cfg-info">📌 <strong>Pourquoi ce réglage ?</strong><br>Permet de faire pointer le lecteur de fichiers vers un autre dossier local (usage avancé / dev).</p>
+        <label class="cfg-label">Chemin racine</label>
+        <input id="cfgInput" class="cfg-input" type="text" placeholder="Laisser vide (par défaut)" spellcheck="false" />
+        <p id="rootDisplay" class="cfg-current"></p>
+        <div class="cfg-actions">
+          <button class="btn btn-primary" onclick="saveConfig()">✅ Sauvegarder</button>
+          <button class="btn btn-outline" onclick="resetConfig()">↩️ Réinitialiser</button>
+          <button class="btn btn-outline" onclick="closeConfig()">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal visualiseur de code -->
+  <div id="codeModal" class="cm-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="cm-box">
+      <div class="cm-header">
+        <div class="cm-title">
+          <span id="cmIcon">📄</span>
+          <span id="cmFilename" class="cm-fname">fichier</span>
+          <span id="cmLang" class="cm-badge"></span>
+          <span id="cmMeta" class="cm-meta"></span>
+        </div>
+        <div class="cm-actions">
+          <button class="cm-btn" id="cmCopyBtn" onclick="copyModalCode()" title="Copier le code">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copier le code
+          </button>
+          <button class="cm-btn cm-close-btn" onclick="closeModal()" title="Fermer (Échap)">✕</button>
+        </div>
+      </div>
+      <div id="cmBody" class="cm-body"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/effects.js"></script>
+</body>
+</html>

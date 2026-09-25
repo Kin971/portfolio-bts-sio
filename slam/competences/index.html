@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compétences techniques — Raphael TILACDHARY JEAN, BTS SIO SLAM" />
+  <title>Compétences — Portfolio BTS SIO SLAM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body data-page="slam-competences">
+
+  <canvas id="matrixCanvas"></canvas>
+  <div id="bootScreen"><div class="boot-box"></div><button class="boot-skip" type="button">passer ⏭</button></div>
+  <div id="pageTransition"><span class="pt-text">chargement…</span></div>
+  <div id="updateBanner"><span class="spin"></span><span>Mise à jour détectée — rechargement…</span></div>
+  <div id="progress-bar"></div>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../" class="nav-logo"><span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../apropos/" class="nav-link">À propos</a></li>
+        <li><a href="./" class="nav-link active">Compétences</a></li>
+        <li><a href="../projets/" class="nav-link">Projets</a></li>
+        <li><a href="../referentiel/" class="nav-link">Référentiel</a></li>
+        <li><a href="../cybersecurite/" class="nav-link">Cybersécurité</a></li>
+        <li><a href="../../contact/" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="../../sisr/" class="nav-link" title="Parcours SISR">🎓 SISR →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height:auto; padding:9rem 0 2rem;">
+    <div class="hero-bg"><div class="hero-dots"></div><div class="hero-glow"></div></div>
+    <div class="container">
+      <div class="hero-text" data-animate style="padding:0;">
+        <span class="hero-badge">02 · Compétences</span>
+        <h1>Tableau de <span class="gradient-text">bord</span></h1>
+        <p class="hero-desc">Langages, outils et concepts — présentés comme un panneau de supervision plutôt qu'une simple liste.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Tuiles de synthèse -->
+      <div class="stat-tiles" data-animate>
+        <div class="stat-tile"><div class="stat-tile-num">5</div><div class="stat-tile-lbl">Langages</div></div>
+        <div class="stat-tile"><div class="stat-tile-num">9</div><div class="stat-tile-lbl">Outils</div></div>
+        <div class="stat-tile"><div class="stat-tile-num">7</div><div class="stat-tile-lbl">Concepts maîtrisés</div></div>
+        <div class="stat-tile"><div class="stat-tile-num">2</div><div class="stat-tile-lbl">OS</div></div>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-block" data-animate>
+          <h3 class="skill-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Langages — niveau d'aisance
+          </h3>
+          <div class="bars">
+            <div class="bar-item"><div class="bar-label"><span>Python</span><span>75%</span></div><div class="bar-track"><div class="bar-fill" data-w="75"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>SQL (MySQL)</span><span>70%</span></div><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>Java</span><span>65%</span></div><div class="bar-track"><div class="bar-fill" data-w="65"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>HTML / CSS</span><span>60%</span></div><div class="bar-track"><div class="bar-fill" data-w="60"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>PHP</span><span>40%</span></div><div class="bar-track"><div class="bar-fill" data-w="40"></div></div></div>
+          </div>
+        </div>
+
+        <div class="skill-block" data-animate data-delay="100">
+          <h3 class="skill-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            Frameworks & Outils
+          </h3>
+          <div class="tech-tags">
+            <span class="tech-tag t-python">Turtle</span>
+            <span class="tech-tag t-java">Eclipse IDE</span>
+            <span class="tech-tag t-db">MySQL / MariaDB</span>
+            <span class="tech-tag t-tool">Git</span>
+            <span class="tech-tag t-tool">VS Code</span>
+          </div>
+          <h3 class="skill-title" style="margin-top:1.5rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Environnements
+          </h3>
+          <div class="tech-tags">
+            <span class="tech-tag t-os">Windows 11</span>
+            <span class="tech-tag t-os">Linux (Debian)</span>
+            <span class="tech-tag t-tool">Terminal / Bash</span>
+          </div>
+        </div>
+
+        <div class="skill-block skill-block-wide" data-animate data-delay="200">
+          <h3 class="skill-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            systemctl status — concepts maîtrisés
+          </h3>
+          <div class="status-list">
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Programmation Orientée Objet (POO)</span><span class="status-ok">actif</span></div>
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Design Patterns (Pattern Stratégie)</span><span class="status-ok">actif</span></div>
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Architecture REST API & WebSockets</span><span class="status-ok">actif</span></div>
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Modélisation MCD / Merise</span><span class="status-ok">actif</span></div>
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Architecture MVC</span><span class="status-ok">actif</span></div>
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Cryptologie & Sécurité applicative</span><span class="status-ok">actif</span></div>
+            <div class="status-item"><span class="status-dot"></span><span class="status-name">Développement web Full-Stack</span><span class="status-ok">actif</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" style="padding:2.5rem 0;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <span style="color:var(--muted); font-size:0.9rem;">Suite logique →</span>
+      <a href="../projets/" class="btn btn-outline">Voir mes projets</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span><p>Portfolio BTS SIO SLAM</p></div>
+        <nav class="footer-nav">
+          <a href="../">Accueil</a><a href="../apropos/">À propos</a><a href="../projets/">Projets</a>
+          <a href="../referentiel/">Référentiel</a><a href="../cybersecurite/">Cybersécurité</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Raphael TILACDHARY JEAN</span><span>Fait avec 💙</span></div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <div id="toast"></div>
+
+  <script src="../../js/script.js"></script>
+  <script src="../../js/effects.js"></script>
+</body>
+</html>

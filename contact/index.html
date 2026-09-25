@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact — Raphael TILACDHARY JEAN, étudiant BTS SIO" />
+  <title>Contact — Raphael TILACDHARY JEAN</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="contact">
+
+  <!-- Fond animé (pluie de caractères) — voir js/effects.js -->
+  <canvas id="matrixCanvas"></canvas>
+
+  <!-- Séquence de démarrage façon terminal, une fois par session -->
+  <div id="bootScreen">
+    <div class="boot-box"></div>
+    <button class="boot-skip" type="button">passer ⏭</button>
+  </div>
+
+  <!-- Panneau de transition entre pages — voir js/effects.js -->
+  <div id="pageTransition">
+    <span class="pt-text">chargement…</span>
+  </div>
+
+  <!-- Bannière de rechargement automatique — voir js/effects.js -->
+  <div id="updateBanner">
+    <span class="spin"></span>
+    <span>Mise à jour détectée — rechargement…</span>
+  </div>
+
+  <!-- Barre de progression de lecture (scroll) -->
+  <div id="progress-bar"></div>
+
+  <!-- ============================
+       NAVIGATION
+  ============================= -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../sisr/" class="nav-logo">
+        <span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../sisr/" class="nav-link" title="Parcours 2e année (SISR)">🎓 SISR</a></li>
+        <li><a href="../slam/" class="nav-link" title="Parcours 1ère année (SLAM)">📚 SLAM</a></li>
+        <li><a href="#" class="nav-link nav-cta active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================
+       EN-TÊTE
+  ============================= -->
+  <section id="contact-hero" class="hero" style="min-height:auto; padding:9rem 0 3rem;">
+    <div class="hero-bg">
+      <div class="hero-dots"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="container">
+      <div class="hero-text" data-animate style="padding:0;">
+        <span class="hero-badge">📡 Canal ouvert</span>
+        <h1>Me <span class="gradient-text">contacter</span></h1>
+        <p class="hero-desc">
+          Une seule adresse de contact pour les deux parcours (SLAM et SISR) — pas de raison
+          de la dupliquer sur chaque page. Disponible pour un stage, une alternance,
+          un projet collaboratif ou toute question.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       CONTACT
+  ============================= -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info" data-animate>
+          <div class="contact-item">
+            <div class="ci-icon">✉️</div>
+            <div>
+              <span class="ci-label">Email</span>
+              <a href="mailto:raphtil971@gmail.com" class="ci-value">raphtil971@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">📞</div>
+            <div>
+              <span class="ci-label">Téléphone</span>
+              <a href="tel:+590690312297" class="ci-value">06 90 31 22 97</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">💼</div>
+            <div>
+              <span class="ci-label">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/rapha%C3%ABl-tilacdhary-jean-5a16b4389/" class="ci-value" target="_blank" rel="noopener">Voir le profil</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">🐙</div>
+            <div>
+              <span class="ci-label">GitHub</span>
+              <a href="https://github.com/raphaeltilacdhary-jean-dot" class="ci-value" target="_blank" rel="noopener">Voir le profil</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">📍</div>
+            <div>
+              <span class="ci-label">Localisation</span>
+              <span class="ci-value">Basse-Terre, Guadeloupe 🇬🇵</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-actions" data-animate data-delay="150">
+          <p class="contact-note">
+            Réponse la plus rapide par email. Recherche actuellement un stage ou une
+            alternance pour la 2e année de BTS SIO (option SISR).
+          </p>
+          <a href="mailto:raphtil971@gmail.com?subject=Contact Portfolio BTS SIO" class="btn btn-primary btn-block">
+            ✉️ Envoyer un email
+          </a>
+          <a href="../files/CV_Raphael_TILACDHARY-JEAN.docx" download class="btn btn-outline btn-block">
+            📄 Télécharger le CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span>
+          <p>BTS SIO — SLAM (1ère année) &amp; SISR (2e année)</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="../sisr/">Parcours SISR</a>
+          <a href="../slam/">Parcours SLAM</a>
+          <a href="mailto:raphtil971@gmail.com">Email</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Raphael TILACDHARY JEAN</span>
+        <span>Fait avec 💙 en HTML / CSS</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bouton retour en haut -->
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/effects.js"></script>
+</body>
+</html>

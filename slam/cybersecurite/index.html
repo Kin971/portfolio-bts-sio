@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cybersécurité — Raphael TILACDHARY JEAN, BTS SIO SLAM" />
+  <title>Cybersécurité — Portfolio BTS SIO SLAM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body data-page="slam-cybersecurite">
+
+  <canvas id="matrixCanvas"></canvas>
+  <div id="bootScreen"><div class="boot-box"></div><button class="boot-skip" type="button">passer ⏭</button></div>
+  <div id="pageTransition"><span class="pt-text">chargement…</span></div>
+  <div id="updateBanner"><span class="spin"></span><span>Mise à jour détectée — rechargement…</span></div>
+  <div id="progress-bar"></div>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../" class="nav-logo"><span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../apropos/" class="nav-link">À propos</a></li>
+        <li><a href="../competences/" class="nav-link">Compétences</a></li>
+        <li><a href="../projets/" class="nav-link">Projets</a></li>
+        <li><a href="../referentiel/" class="nav-link">Référentiel</a></li>
+        <li><a href="./" class="nav-link active">Cybersécurité</a></li>
+        <li><a href="../../contact/" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="../../sisr/" class="nav-link" title="Parcours SISR">🎓 SISR →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height:auto; padding:9rem 0 2rem;">
+    <div class="hero-bg"><div class="hero-dots"></div><div class="hero-glow"></div></div>
+    <div class="container">
+      <div class="hero-text" data-animate style="padding:0;">
+        <span class="hero-badge">05 · Sécurité</span>
+        <h1>Dossier <span class="gradient-text">cybersécurité</span></h1>
+        <p class="hero-desc">Travaux pratiques, cours et bonnes pratiques appliqués en développement — présentés en fiches, comme un rapport d'intervention.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="dossier-list" data-animate>
+
+        <div class="dossier-item">
+          <div class="dossier-head">
+            <span class="dossier-num">FICHE 01</span>
+            <span class="dossier-title">🔐 Cryptologie</span>
+            <span class="dossier-level">Cours</span>
+          </div>
+          <div class="dossier-body">
+            <p>Cours complet sur les fondamentaux de la cryptographie : chiffrement symétrique / asymétrique,
+               hachage, signatures numériques et protocoles de sécurité.</p>
+            <div class="cy-tags"><span>Chiffrement</span><span>Hachage</span><span>RSA</span><span>AES</span></div>
+            <button class="cy-btn" style="margin-top:1rem;" onclick="openFile(this)"
+              data-path="BTS SIO COURS\1ere Année\SIO Cybersécurité Mme Guiollet\CRYPTOLOGIE.docx">📄 Notes de cours (.docx)</button>
+          </div>
+        </div>
+
+        <div class="dossier-item">
+          <div class="dossier-head">
+            <span class="dossier-num">FICHE 02</span>
+            <span class="dossier-title">🔑 TP — Cracking de mots de passe</span>
+            <span class="dossier-level">TP pratique</span>
+          </div>
+          <div class="dossier-body">
+            <p>Travaux pratiques sur les techniques de cracking sous Linux : utilisation de wordlists
+               (rockyou.txt), analyse de hachages, outils de déchiffrement.</p>
+            <div class="cy-tags"><span>Linux</span><span>Wordlists</span><span>Hachage</span><span>Kali/Debian</span></div>
+            <button class="cy-btn" style="margin-top:1rem;" onclick="openFile(this)"
+              data-path="tp cracking de mot passe\tp">📁 Dossier TP</button>
+          </div>
+        </div>
+
+        <div class="dossier-item">
+          <div class="dossier-head">
+            <span class="dossier-num">FICHE 03</span>
+            <span class="dossier-title">🔒 Authentification &amp; Contrôle d'accès</span>
+            <span class="dossier-level">Code Java</span>
+          </div>
+          <div class="dossier-body">
+            <p>Système d'authentification Java avec gestion des tentatives échouées, contrôle d'accès SQL
+               (GRANT / REVOKE), principe de moindre privilège.</p>
+            <div class="cy-tags"><span>Auth Java</span><span>GRANT/REVOKE</span><span>Moindre privilège</span></div>
+            <button class="cy-btn" style="margin-top:1rem;" onclick="openFile(this)"
+              data-path="BTS SIO COURS\1ere Année\Cisneros\1er Semestre\CorrectionConsole\src\PincipaleCorrectionConsole.java">📄 Code Java</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cyber-notice" data-animate style="margin-top:1.75rem;">
+        <strong>À savoir :</strong> ce dossier documente un cadre pédagogique (cours et TP encadrés) —
+        les techniques présentées ne sont mises en œuvre que dans ce contexte de formation.
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" style="padding:2.5rem 0;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <span style="color:var(--muted); font-size:0.9rem;">Vous avez fait le tour →</span>
+      <a href="../../contact/" class="btn btn-outline">Me contacter</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span><p>Portfolio BTS SIO SLAM</p></div>
+        <nav class="footer-nav">
+          <a href="../">Accueil</a><a href="../apropos/">À propos</a><a href="../competences/">Compétences</a>
+          <a href="../projets/">Projets</a><a href="../referentiel/">Référentiel</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Raphael TILACDHARY JEAN</span><span>Fait avec 💙</span></div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <div id="toast"></div>
+
+  <!-- Modal visualiseur de code (utilisé par les boutons de dossiers) -->
+  <div id="codeModal" class="cm-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="cm-box">
+      <div class="cm-header">
+        <div class="cm-title">
+          <span id="cmIcon">📄</span>
+          <span id="cmFilename" class="cm-fname">fichier</span>
+          <span id="cmLang" class="cm-badge"></span>
+          <span id="cmMeta" class="cm-meta"></span>
+        </div>
+        <div class="cm-actions">
+          <button class="cm-btn" id="cmCopyBtn" onclick="copyModalCode()" title="Copier le code">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copier le code
+          </button>
+          <button class="cm-btn cm-close-btn" onclick="closeModal()" title="Fermer (Échap)">✕</button>
+        </div>
+      </div>
+      <div id="cmBody" class="cm-body"></div>
+    </div>
+  </div>
+
+  <script src="../../js/script.js"></script>
+  <script src="../../js/effects.js"></script>
+</body>
+</html>

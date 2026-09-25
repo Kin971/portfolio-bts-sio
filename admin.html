@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Portfolio Raphael TILACDHARY JEAN</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2128;
+      --border: #30363d;
+      --primary: #388bfd;
+      --primary-h: #58a6ff;
+      --accent: #3fb950;
+      --warn: #d29922;
+      --danger: #f85149;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --gradient: linear-gradient(135deg, #388bfd 0%, #7c3aed 100%);
+      --sidebar-w: 230px;
+    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; min-height: 100vh; }
+
+    /* ── Login ── */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: var(--bg);
+    }
+    .login-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 40px 36px; width: 340px; text-align: center;
+    }
+    .login-logo { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .login-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .login-sub { color: var(--muted); margin-bottom: 28px; font-size: 13px; }
+    .login-input {
+      width: 100%; padding: 10px 14px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 8px; color: var(--text);
+      font-size: 15px; outline: none; margin-bottom: 14px; letter-spacing: 2px;
+      transition: border-color .2s;
+    }
+    .login-input:focus { border-color: var(--primary); }
+    .login-btn {
+      width: 100%; padding: 11px; background: var(--gradient); border: none;
+      border-radius: 8px; color: #fff; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .login-btn:hover { opacity: .88; }
+    .login-error { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+    /* ── Admin layout ── */
+    #adminApp { display: none; }
+    .admin-layout { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh;
+      z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 20px 18px 16px; font-weight: 700; font-size: 15px;
+      border-bottom: 1px solid var(--border);
+      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .sidebar-nav { flex: 1; padding: 10px 0; overflow-y: auto; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 18px;
+      cursor: pointer; border-radius: 0; transition: background .15s; color: var(--muted);
+      font-size: 14px; border: none; background: none; width: 100%; text-align: left;
+    }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: rgba(56,139,253,.15); color: var(--primary); font-weight: 600; }
+    .nav-icon { font-size: 16px; min-width: 20px; }
+    .sidebar-bottom {
+      padding: 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px;
+    }
+    .sidebar-bottom a, .sidebar-bottom button {
+      display: block; width: 100%; padding: 8px 12px; border-radius: 7px; font-size: 13px;
+      text-align: center; text-decoration: none; cursor: pointer;
+      transition: opacity .2s;
+    }
+    .btn-logout {
+      background: rgba(248,81,73,.15); border: 1px solid rgba(248,81,73,.35);
+      color: var(--danger); font-weight: 600;
+    }
+    .btn-logout:hover { opacity: .8; }
+    .btn-view {
+      background: rgba(56,139,253,.12); border: 1px solid rgba(56,139,253,.3);
+      color: var(--primary); font-weight: 500;
+    }
+    .btn-view:hover { opacity: .8; }
+
+    /* ── Main content ── */
+    .main-content {
+      margin-left: var(--sidebar-w); flex: 1; padding: 28px 32px;
+      max-width: calc(100vw - var(--sidebar-w)); overflow-x: hidden;
+    }
+    .section-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .section-sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 20px 22px; margin-bottom: 18px;
+    }
+    .card-title { font-weight: 600; font-size: 15px; margin-bottom: 14px; }
+
+    /* ── Tunnel section ── */
+    .tunnel-status-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 28px; display: flex; align-items: center; gap: 18px; margin-bottom: 20px;
+    }
+    .status-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+    .status-dot.red { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+    .status-dot.yellow { background: var(--warn); box-shadow: 0 0 8px var(--warn); animation: pulse 1s infinite; }
+    .status-dot.green { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+    .status-text { font-size: 18px; font-weight: 600; }
+    .status-sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+    .tunnel-url-box {
+      background: var(--surface2); border: 1px solid var(--accent); border-radius: 8px;
+      padding: 14px 18px; font-family: monospace; font-size: 15px; color: var(--accent);
+      margin-bottom: 16px; word-break: break-all;
+    }
+    .tunnel-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: opacity .2s; }
+    .btn:hover { opacity: .85; }
+    .btn-primary { background: var(--gradient); color: #fff; }
+    .btn-success { background: var(--accent); color: #0d1117; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-sm { padding: 6px 12px; font-size: 13px; }
+    .spinner {
+      display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .tunnel-error-msg {
+      background: rgba(248,81,73,.1); border: 1px solid rgba(248,81,73,.35);
+      border-radius: 8px; padding: 14px; color: var(--danger); font-size: 13px; line-height: 1.6;
+    }
+    .tunnel-error-msg a { color: var(--primary); }
+
+    /* ── Projects list ── */
+    .proj-list { display: flex; flex-direction: column; gap: 10px; }
+    .proj-row {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; display: flex; align-items: center; gap: 12px;
+      cursor: grab; transition: box-shadow .15s;
+    }
+    .proj-row.drag-over { box-shadow: 0 0 0 2px var(--primary); }
+    .drag-handle { color: var(--muted); font-size: 18px; cursor: grab; user-select: none; }
+    .proj-icon { font-size: 20px; min-width: 28px; text-align: center; }
+    .proj-info { flex: 1; min-width: 0; }
+    .proj-title-row { font-weight: 600; font-size: 14px; }
+    .proj-cats { display: flex; gap: 5px; margin-top: 4px; flex-wrap: wrap; }
+    .cat-badge {
+      background: rgba(56,139,253,.15); border: 1px solid rgba(56,139,253,.3);
+      color: var(--primary); border-radius: 4px; padding: 1px 7px; font-size: 11px;
+    }
+    .proj-actions { display: flex; align-items: center; gap: 8px; }
+    /* Toggle switch */
+    .toggle-wrap { display: flex; align-items: center; gap: 6px; }
+    .toggle { position: relative; display: inline-block; width: 38px; height: 22px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--border); border-radius: 22px; transition: .2s;
+    }
+    .toggle-slider::before {
+      position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+      background: var(--text); border-radius: 50%; transition: .2s;
+    }
+    input:checked + .toggle-slider { background: var(--accent); }
+    input:checked + .toggle-slider::before { transform: translateX(16px); }
+    .toggle-lbl { font-size: 12px; color: var(--muted); }
+    .btn-edit { background: rgba(56,139,253,.15); border: 1px solid rgba(56,139,253,.3); color: var(--primary); }
+    .btn-delete { background: rgba(248,81,73,.12); border: 1px solid rgba(248,81,73,.3); color: var(--danger); }
+    .add-proj-btn { margin-bottom: 16px; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 999;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 24px 16px; overflow-y: auto;
+    }
+    .modal-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      width: 100%; max-width: 680px; padding: 28px; position: relative;
+      margin: auto;
+    }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 22px; }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px; background: none; border: none;
+      color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; padding: 9px 12px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 7px; color: var(--text);
+      font-size: 14px; outline: none; transition: border-color .15s; font-family: inherit;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--primary); }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .checkbox-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .checkbox-item { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
+    .checkbox-item input { accent-color: var(--primary); }
+    /* Tag input */
+    .tag-input-wrap {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
+      padding: 6px 8px; display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px;
+      cursor: text;
+    }
+    .tag-input-wrap:focus-within { border-color: var(--primary); }
+    .tag-chip {
+      background: rgba(56,139,253,.2); border: 1px solid rgba(56,139,253,.4);
+      color: var(--primary); border-radius: 5px; padding: 2px 8px; font-size: 12px;
+      display: flex; align-items: center; gap: 4px; cursor: pointer;
+    }
+    .tag-chip:hover { background: rgba(248,81,73,.2); border-color: rgba(248,81,73,.4); color: var(--danger); }
+    .tag-input {
+      border: none; background: none; color: var(--text); font-size: 13px;
+      outline: none; min-width: 80px; flex: 1;
+    }
+    /* Dynamic rows */
+    .dyn-rows { display: flex; flex-direction: column; gap: 8px; }
+    .dyn-row { display: flex; align-items: center; gap: 8px; }
+    .dyn-row .form-input { flex: 1; }
+    .btn-remove-row {
+      background: rgba(248,81,73,.12); border: 1px solid rgba(248,81,73,.3);
+      color: var(--danger); border-radius: 5px; padding: 5px 10px; cursor: pointer;
+      font-size: 13px; flex-shrink: 0;
+    }
+    .btn-add-row {
+      background: rgba(56,139,253,.1); border: 1px solid rgba(56,139,253,.3);
+      color: var(--primary); border-radius: 5px; padding: 6px 12px; cursor: pointer;
+      font-size: 13px; margin-top: 6px;
+    }
+    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); }
+
+    /* ── Theme section ── */
+    .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .color-row {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .color-preview { width: 36px; height: 36px; border-radius: 7px; border: 1px solid var(--border); flex-shrink: 0; cursor: pointer; }
+    .color-info { flex: 1; min-width: 0; }
+    .color-lbl { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .color-hex {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 5px;
+      color: var(--text); font-family: monospace; font-size: 13px;
+      padding: 4px 8px; width: 100%; outline: none;
+    }
+    .color-hex:focus { border-color: var(--primary); }
+    .preset-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .preset-btn {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
+      padding: 7px 14px; font-size: 13px; color: var(--text); cursor: pointer;
+    }
+    .preset-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .preview-toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; font-size: 14px; }
+
+    /* ── Fields section (Hero / About) ── */
+    .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 600px) { .fields-grid, .form-row { grid-template-columns: 1fr; } }
+
+    /* ── Security section ── */
+    .security-card { max-width: 420px; }
+
+    /* ── Toast ── */
+    #adminToast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 9px;
+      padding: 13px 20px; font-size: 14px; color: var(--text);
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+      transform: translateY(80px); opacity: 0; transition: all .3s; pointer-events: none;
+    }
+    #adminToast.show { transform: translateY(0); opacity: 1; }
+    #adminToast.success { border-color: var(--accent); }
+    #adminToast.error { border-color: var(--danger); }
+
+    /* ── Save button ── */
+    .save-btn-row { margin-top: 20px; display: flex; gap: 10px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo"><span>Admin</span> · Portfolio</div>
+    <div class="login-sub">Panneau d'administration</div>
+    <input id="loginUser" class="login-input" type="text" placeholder="Identifiant" autocomplete="username" />
+    <input id="loginPwd" class="login-input" type="password" placeholder="Mot de passe" autocomplete="current-password" />
+    <button class="login-btn" onclick="doLogin()">Démarrer</button>
+    <div id="loginError" class="login-error"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ADMIN APP
+═══════════════════════════════════════════════════════ -->
+<div id="adminApp">
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">Admin · Portfolio</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="showSection('rapport')">
+          <span class="nav-icon">📄</span> Rapport de stage
+        </button>
+        <button class="nav-item" onclick="showSection('projets')">
+          <span class="nav-icon">📋</span> Projets
+        </button>
+        <button class="nav-item" onclick="showSection('theme')">
+          <span class="nav-icon">🎨</span> Thème
+        </button>
+        <button class="nav-item" onclick="showSection('hero')">
+          <span class="nav-icon">🏠</span> Héro
+        </button>
+        <button class="nav-item" onclick="showSection('about')">
+          <span class="nav-icon">👤</span> À propos
+        </button>
+        <button class="nav-item" onclick="showSection('security')">
+          <span class="nav-icon">🔑</span> Sécurité
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <a href="." target="_blank" class="btn-view">🌐 Voir le portfolio</a>
+        <button onclick="doLogout()" class="btn-logout">Déconnexion</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content" id="mainContent">
+      <p style="color:var(--muted)">Chargement…</p>
+    </main>
+
+  </div>
+</div>
+
+<!-- Modal projet -->
+<div id="projModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeProjModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeProjModal()">✕</button>
+    <div class="modal-title" id="projModalTitle">Modifier le projet</div>
+    <div id="projModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeProjModal()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveProjModal()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="adminToast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let config = null;
+let token = sessionStorage.getItem('admin_token');
+let currentSection = 'rapport';
+let _editingProjIdx = null;
+let _livePreview = false;
+
+/* ═══════════════════════════════════════════════════════
+   API HELPERS
+═══════════════════════════════════════════════════════ */
+async function apiGet(path) {
+  const r = await fetch(path, { headers: { 'Authorization': 'Bearer ' + token } });
+  return r.json();
+}
+async function apiPost(path, data) {
+  const r = await fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify(data),
+  });
+  return r.json();
+}
+
+/* ═══════════════════════════════════════════════════════
+   SAVE CONFIG
+═══════════════════════════════════════════════════════ */
+async function saveConfig() {
+  try {
+    const res = await apiPost('api/config', config);
+    if (res.ok) toast('✅ Configuration sauvegardée', 'success');
+    else toast('❌ ' + (res.error || 'Erreur'), 'error');
+  } catch(e) {
+    toast('❌ Erreur réseau', 'error');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════ */
+function toast(msg, type='success') {
+  const el = document.getElementById('adminToast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.className = ''; }, 3000);
+}
+
+/* ═══════════════════════════════════════════════════════
+   LOGIN / LOGOUT
+═══════════════════════════════════════════════════════ */
+document.getElementById('loginPwd').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function doLogin() {
+  const user = document.getElementById('loginUser').value;
+  const pwd = document.getElementById('loginPwd').value;
+  document.getElementById('loginError').textContent = '';
+  try {
+    const r = await fetch('api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: user, password: pwd }),
+    });
+    const data = await r.json();
+    if (data.token) {
+      token = data.token;
+      sessionStorage.setItem('admin_token', token);
+      await loadAndShowAdmin();
+    } else {
+      document.getElementById('loginError').textContent = '❌ Identifiant ou mot de passe incorrect';
+    }
+  } catch(e) {
+    document.getElementById('loginError').textContent = '❌ Erreur de connexion';
+  }
+}
+
+async function doLogout() {
+  await fetch('api/logout', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } });
+  sessionStorage.removeItem('admin_token');
+  token = null;
+  document.getElementById('adminApp').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginPwd').value = '';
+}
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+async function loadAndShowAdmin() {
+  try {
+    config = await apiGet('api/config');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminApp').style.display = 'block';
+    showSection('rapport');
+  } catch(e) {
+    document.getElementById('loginError').textContent = '❌ Impossible de charger la configuration';
+  }
+}
+
+window.addEventListener('load', async () => {
+  if (token) {
+    try {
+      config = await apiGet('api/config');
+      if (config && !config.error) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminApp').style.display = 'block';
+        showSection('rapport');
+        return;
+      }
+    } catch(e) {}
+    sessionStorage.removeItem('admin_token');
+    token = null;
+  }
+});
+
+/* ═══════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════ */
+function showSection(name) {
+  currentSection = name;
+  // Update nav
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const btns = document.querySelectorAll('.nav-item');
+  btns.forEach(b => { if (b.textContent.trim().toLowerCase().includes(name.substring(0,4).toLowerCase()) ||
+    (name==='rapport'&&b.textContent.includes('Rapport'))||(name==='projets'&&b.textContent.includes('Projets'))||
+    (name==='theme'&&b.textContent.includes('Thème'))||(name==='hero'&&b.textContent.includes('Héro'))||
+    (name==='about'&&b.textContent.includes('propos'))||(name==='security'&&b.textContent.includes('curité'))
+  ) b.classList.add('active'); });
+
+  const main = document.getElementById('mainContent');
+  switch(name) {
+    case 'rapport':  main.innerHTML = renderRapport();  break;
+    case 'projets':  main.innerHTML = renderProjets();  bindProjets();     break;
+    case 'theme':    main.innerHTML = renderTheme();    bindTheme();       break;
+    case 'hero':     main.innerHTML = renderHero();     break;
+    case 'about':    main.innerHTML = renderAbout();    break;
+    case 'security': main.innerHTML = renderSecurity(); break;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RAPPORT DE STAGE SECTION
+═══════════════════════════════════════════════════════ */
+function renderRapport() {
+  const r = config.rapport || {};
+  return `
+    <div class="section-title">📄 Rapport de stage</div>
+    <div class="section-sub">Titre, description et fichier téléchargeable par les visiteurs</div>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">Titre</label>
+        <input id="rapTitle" class="form-input" value="${escAttr(r.title||'')}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea id="rapDesc" class="form-textarea">${escAttr(r.description||'')}</textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fichier actuel</label>
+        <div style="color:var(--muted);font-size:13px">
+          ${r.filename ? `📎 ${escAttr(r.filename)} ${r.size ? '(' + Math.round(r.size/1024) + ' Ko)' : ''} — mis à jour le ${escAttr(r.updated||'?')}` : 'Aucun fichier'}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Remplacer le fichier (.pdf ou .docx)</label>
+        <input id="rapFile" class="form-input" type="file" accept=".pdf,.docx">
+      </div>
+      <div class="save-btn-row">
+        <button class="btn btn-primary" onclick="saveRapport()">Enregistrer</button>
+      </div>
+      <div id="rapError" style="color:var(--danger);font-size:13px;margin-top:8px;min-height:18px"></div>
+    </div>
+  `;
+}
+
+function _fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function saveRapport() {
+  const err = document.getElementById('rapError');
+  err.textContent = '';
+  const payload = {
+    title: document.getElementById('rapTitle').value,
+    description: document.getElementById('rapDesc').value,
+  };
+  const fileInput = document.getElementById('rapFile');
+  if (fileInput.files && fileInput.files[0]) {
+    const file = fileInput.files[0];
+    payload.filename = file.name;
+    try {
+      payload.content_base64 = await _fileToBase64(file);
+    } catch (e) {
+      err.textContent = '❌ Impossible de lire le fichier';
+      return;
+    }
+  }
+  const res = await apiPost('api/report', payload).catch(() => null);
+  if (res && res.ok) {
+    config.rapport = res.rapport;
+    toast('✅ Rapport de stage mis à jour', 'success');
+    showSection('rapport');
+  } else {
+    err.textContent = '❌ ' + ((res && res.error) || 'Erreur lors de la sauvegarde');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   PROJETS SECTION
+═══════════════════════════════════════════════════════ */
+const PROJECT_CAT_LABELS = {
+  python: 'Python',
+  java: 'Java',
+  web: 'Web',
+  database: 'Base de données',
+  security: 'Cybersécurité',
+  grand: 'Grand projet',
+};
+function renderProjets() {
+  const projects = config.projects || [];
+  const rows = projects.map((p, i) => `
+    <div class="proj-row" draggable="true" data-idx="${i}">
+      <span class="drag-handle">⠿</span>
+      <span class="proj-icon">${p.icon || '📁'}</span>
+      <div class="proj-info">
+        <div class="proj-title-row">${escHtml(p.title || '')}</div>
+        <div class="proj-cats">
+          ${(p.categories||[]).map(c => `<span class="cat-badge">${escHtml(PROJECT_CAT_LABELS[c] || c)}</span>`).join('')}
+        </div>
+      </div>
+      <div class="proj-actions">
+        <label class="toggle" title="Visible">
+          <input type="checkbox" ${p.visible!==false?'checked':''} onchange="toggleVisible(${i},this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+        <button class="btn btn-sm btn-edit" onclick="openProjModal(${i})">✏️ Modifier</button>
+        <button class="btn btn-sm btn-delete" onclick="deleteProj(${i})">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="section-title">📋 Projets</div>
+    <div class="section-sub">Gérer et réordonner les projets du portfolio</div>
+    <button class="btn btn-primary add-proj-btn" onclick="openProjModal(-1)">+ Ajouter un projet</button>
+    <div class="proj-list" id="projList">${rows}</div>
+  `;
+}
+
+function bindProjets() {
+  const list = document.getElementById('projList');
+  if (!list) return;
+  let dragIdx = null;
+  list.querySelectorAll('.proj-row').forEach(row => {
+    row.addEventListener('dragstart', e => {
+      dragIdx = parseInt(row.dataset.idx);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    row.addEventListener('dragover', e => {
+      e.preventDefault();
+      list.querySelectorAll('.proj-row').forEach(r => r.classList.remove('drag-over'));
+      row.classList.add('drag-over');
+    });
+    row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
+    row.addEventListener('drop', e => {
+      e.preventDefault();
+      row.classList.remove('drag-over');
+      const toIdx = parseInt(row.dataset.idx);
+      if (dragIdx !== null && dragIdx !== toIdx) {
+        const arr = config.projects;
+        const [item] = arr.splice(dragIdx, 1);
+        arr.splice(toIdx, 0, item);
+        saveConfig().then(() => showSection('projets'));
+      }
+    });
+  });
+}
+
+function toggleVisible(idx, val) {
+  config.projects[idx].visible = val;
+  saveConfig();
+}
+
+function deleteProj(idx) {
+  const p = config.projects[idx];
+  if (!confirm(`Supprimer le projet "${p.title}" ?`)) return;
+  config.projects.splice(idx, 1);
+  saveConfig().then(() => showSection('projets'));
+}
+
+/* ── Project Modal ── */
+function openProjModal(idx) {
+  _editingProjIdx = idx;
+  const isNew = idx === -1;
+  const p = isNew ? {
+    id: 'new-project', featured: false, visible: true, icon: '📁',
+    title: '', description: '', techs: [], kpis: [], competences: [], links: [], categories: []
+  } : { ...config.projects[idx], techs: [...(config.projects[idx].techs||[])],
+        kpis: (config.projects[idx].kpis||[]).map(k=>({...k})),
+        competences: [...(config.projects[idx].competences||[])],
+        links: (config.projects[idx].links||[]).map(l=>({...l})),
+        categories: [...(config.projects[idx].categories||[])] };
+
+  document.getElementById('projModalTitle').textContent = isNew ? '+ Ajouter un projet' : '✏️ Modifier le projet';
+
+  const catList = [
+    ['python', 'Python'],
+    ['java', 'Java'],
+    ['web', 'Web'],
+    ['database', 'Base de données'],
+    ['security', 'Cybersécurité'],
+    ['grand', 'Grand projet'],
+  ];
+  const techsHtml = (p.techs||[]).map(t => `<span class="tag-chip" onclick="removeTag(this)">${escHtml(t)}</span>`).join('');
+  const kpisHtml = (p.kpis||[]).map(k => `
+    <div class="dyn-row">
+      <input class="form-input kpi-val" placeholder="Valeur" value="${escAttr(k.value||'')}">
+      <input class="form-input kpi-lbl" placeholder="Libellé" value="${escAttr(k.label||'')}">
+      <button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
+    </div>`).join('');
+  const compsHtml = (p.competences||[]).map(c => `
+    <div class="dyn-row">
+      <input class="form-input comp-val" placeholder="Ex: B2.1 Développement applicatif" value="${escAttr(c||'')}">
+      <button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
+    </div>`).join('');
+  const linksHtml = (p.links||[]).map(l => `
+    <div class="dyn-row" style="flex-wrap:wrap;gap:6px">
+      <input class="form-input link-lbl" placeholder="Libellé (ex: 📄 app.py)" value="${escAttr(l.label||'')}">
+      <input class="form-input link-path" placeholder="Chemin Windows" value="${escAttr(l.path||'')}">
+      <select class="form-select link-style" style="width:auto;flex:0 0 auto">
+        <option value="main" ${l.style==='main'?'selected':''}>Principal</option>
+        <option value="sec" ${l.style==='sec'?'selected':''}>Secondaire</option>
+      </select>
+      <button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
+    </div>`).join('');
+
+  document.getElementById('projModalBody').innerHTML = `
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Icône (emoji)</label>
+        <input id="pIcon" class="form-input" value="${escAttr(p.icon||'📁')}" maxlength="4">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ID</label>
+        <input id="pId" class="form-input" value="${escAttr(p.id||'')}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Titre</label>
+      <input id="pTitle" class="form-input" value="${escAttr(p.title||'')}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea id="pDesc" class="form-textarea">${escHtml(p.description||'')}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Catégories</label>
+      <div class="checkbox-grid">
+        ${catList.map(([id, label])=>`<label class="checkbox-item"><input type="checkbox" class="cat-check" value="${id}" ${(p.categories||[]).includes(id)?'checked':''}> ${label}</label>`).join('')}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="checkbox-item" style="margin-top:8px"><input type="checkbox" id="pFeatured" ${p.featured?'checked':''}> ⭐ Mis en avant</label>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-item" style="margin-top:8px"><input type="checkbox" id="pVisible" ${p.visible!==false?'checked':''}> 👁 Visible</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Libellé « mis en avant » (affiche ⭐ … à côté du titre)</label>
+      <input id="pFeaturedLabel" class="form-input" value="${escAttr(p.featuredLabel||'')}" placeholder="ex. Grand projet (défaut : Projet phare)">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Technologies (Entrée pour ajouter, clic pour supprimer)</label>
+      <div class="tag-input-wrap" id="techWrap" onclick="document.getElementById('techInput').focus()">
+        ${techsHtml}
+        <input id="techInput" class="tag-input" placeholder="Ajouter…">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">KPIs</label>
+      <div class="dyn-rows" id="kpiRows">${kpisHtml}</div>
+      <button class="btn-add-row" onclick="addKpiRow()">+ Ajouter un KPI</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Compétences BTS</label>
+      <div class="dyn-rows" id="compRows">${compsHtml}</div>
+      <button class="btn-add-row" onclick="addCompRow()">+ Ajouter une compétence</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Liens fichiers</label>
+      <div class="dyn-rows" id="linkRows">${linksHtml}</div>
+      <button class="btn-add-row" onclick="addLinkRow()">+ Ajouter un lien</button>
+    </div>
+  `;
+
+  document.getElementById('techInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const val = e.target.value.trim();
+      if (val) {
+        const chip = document.createElement('span');
+        chip.className = 'tag-chip';
+        chip.textContent = val;
+        chip.onclick = () => removeTag(chip);
+        document.getElementById('techWrap').insertBefore(chip, e.target);
+        e.target.value = '';
+      }
+    }
+  });
+
+  document.getElementById('projModal').style.display = 'flex';
+}
+
+function removeTag(el) { el.remove(); }
+function addKpiRow() {
+  const row = document.createElement('div');
+  row.className = 'dyn-row';
+  row.innerHTML = `<input class="form-input kpi-val" placeholder="Valeur"><input class="form-input kpi-lbl" placeholder="Libellé"><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('kpiRows').appendChild(row);
+}
+function addCompRow() {
+  const row = document.createElement('div');
+  row.className = 'dyn-row';
+  row.innerHTML = `<input class="form-input comp-val" placeholder="Ex: B2.1 Développement applicatif"><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('compRows').appendChild(row);
+}
+function addLinkRow() {
+  const row = document.createElement('div');
+  row.className = 'dyn-row';
+  row.style.cssText = 'flex-wrap:wrap;gap:6px';
+  row.innerHTML = `<input class="form-input link-lbl" placeholder="Libellé"><input class="form-input link-path" placeholder="Chemin Windows"><select class="form-select link-style" style="width:auto;flex:0 0 auto"><option value="main">Principal</option><option value="sec">Secondaire</option></select><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('linkRows').appendChild(row);
+}
+
+function closeProjModal() {
+  document.getElementById('projModal').style.display = 'none';
+}
+
+async function saveProjModal() {
+  const isNew = _editingProjIdx === -1;
+  const featuredLbl = document.getElementById('pFeaturedLabel').value.trim();
+  const p = {
+    id: document.getElementById('pId').value.trim(),
+    featured: document.getElementById('pFeatured').checked,
+    visible: document.getElementById('pVisible').checked,
+    icon: document.getElementById('pIcon').value.trim(),
+    title: document.getElementById('pTitle').value.trim(),
+    description: document.getElementById('pDesc').value.trim(),
+    categories: [...document.querySelectorAll('.cat-check:checked')].map(el => el.value),
+    techs: [...document.querySelectorAll('#techWrap .tag-chip')].map(el => el.textContent.trim()),
+    kpis: [...document.querySelectorAll('#kpiRows .dyn-row')].map(row => ({
+      value: row.querySelector('.kpi-val').value.trim(),
+      label: row.querySelector('.kpi-lbl').value.trim(),
+    })).filter(k => k.value || k.label),
+    competences: [...document.querySelectorAll('#compRows .dyn-row')].map(row => row.querySelector('.comp-val').value.trim()).filter(Boolean),
+    links: [...document.querySelectorAll('#linkRows .dyn-row')].map(row => ({
+      label: row.querySelector('.link-lbl').value.trim(),
+      path: row.querySelector('.link-path').value.trim(),
+      style: row.querySelector('.link-style').value,
+    })).filter(l => l.label || l.path),
+  };
+  if (featuredLbl) p.featuredLabel = featuredLbl;
+  if (isNew) {
+    config.projects = config.projects || [];
+    config.projects.push(p);
+  } else {
+    config.projects[_editingProjIdx] = p;
+  }
+  closeProjModal();
+  await saveConfig();
+  showSection('projets');
+}
+
+/* ═══════════════════════════════════════════════════════
+   THEME SECTION
+═══════════════════════════════════════════════════════ */
+const THEME_FIELDS = [
+  { key: 'primary',       label: '--primary' },
+  { key: 'primaryH',      label: '--primary-h' },
+  { key: 'accent',        label: '--accent' },
+  { key: 'bg',            label: '--bg' },
+  { key: 'surface',       label: '--surface' },
+  { key: 'gradientStart', label: 'Gradient début' },
+  { key: 'gradientEnd',   label: 'Gradient fin' },
+];
+
+const PRESETS = {
+  'GitHub Dark': { primary:'#388bfd', primaryH:'#58a6ff', accent:'#3fb950', bg:'#0d1117', surface:'#161b22', gradientStart:'#388bfd', gradientEnd:'#7c3aed' },
+  'Violet':      { primary:'#a855f7', primaryH:'#c084fc', accent:'#22d3ee', bg:'#0f0f1a', surface:'#1a1a2e', gradientStart:'#a855f7', gradientEnd:'#ec4899' },
+  'Vert':        { primary:'#22c55e', primaryH:'#4ade80', accent:'#f59e0b', bg:'#0a1a0f', surface:'#0f2518', gradientStart:'#22c55e', gradientEnd:'#0ea5e9' },
+  'Rouge/Orange':{ primary:'#ef4444', primaryH:'#f87171', accent:'#f97316', bg:'#1a0a0a', surface:'#261010', gradientStart:'#ef4444', gradientEnd:'#f97316' },
+};
+
+function renderTheme() {
+  const t = config.theme || {};
+  const fieldsHtml = THEME_FIELDS.map(f => `
+    <div class="color-row">
+      <input type="color" class="color-preview" id="cpick-${f.key}" value="${t[f.key]||'#000000'}" oninput="syncColorInput('${f.key}')">
+      <div class="color-info">
+        <div class="color-lbl">${f.label}</div>
+        <input class="color-hex" id="chex-${f.key}" value="${t[f.key]||''}" oninput="syncColorPick('${f.key}')">
+      </div>
+    </div>
+  `).join('');
+
+  const presetBtns = Object.keys(PRESETS).map(name =>
+    `<button class="preset-btn" onclick="applyPreset('${name}')">${name}</button>`
+  ).join('');
+
+  return `
+    <div class="section-title">🎨 Thème</div>
+    <div class="section-sub">Personnaliser les couleurs du portfolio</div>
+    <div class="preset-bar">${presetBtns}</div>
+    <div class="preview-toggle-row">
+      <label class="toggle"><input type="checkbox" id="livePreviewToggle" onchange="toggleLivePreview(this.checked)"><span class="toggle-slider"></span></label>
+      <span>Aperçu en direct</span>
+    </div>
+    <div class="theme-grid">${fieldsHtml}</div>
+    <div class="save-btn-row">
+      <button class="btn btn-primary" onclick="saveTheme()">Sauvegarder le thème</button>
+    </div>
+  `;
+}
+
+function bindTheme() {}
+
+function syncColorInput(key) {
+  const val = document.getElementById('cpick-' + key).value;
+  document.getElementById('chex-' + key).value = val;
+  if (_livePreview) applyThemePreview();
+}
+function syncColorPick(key) {
+  const val = document.getElementById('chex-' + key).value;
+  if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+    document.getElementById('cpick-' + key).value = val;
+    if (_livePreview) applyThemePreview();
+  }
+}
+function toggleLivePreview(on) {
+  _livePreview = on;
+  if (on) applyThemePreview();
+}
+function applyThemePreview() {
+  const r = document.documentElement;
+  THEME_FIELDS.forEach(f => {
+    const val = document.getElementById('chex-' + f.key)?.value;
+    if (!val) return;
+    if (f.key === 'gradientStart' || f.key === 'gradientEnd') {
+      const gs = document.getElementById('chex-gradientStart')?.value || '#388bfd';
+      const ge = document.getElementById('chex-gradientEnd')?.value || '#7c3aed';
+      r.style.setProperty('--gradient', `linear-gradient(135deg, ${gs} 0%, ${ge} 100%)`);
+    } else {
+      const cssVar = '--' + (f.key === 'primaryH' ? 'primary-h' : f.key);
+      r.style.setProperty(cssVar, val);
+    }
+  });
+}
+function applyPreset(name) {
+  const p = PRESETS[name];
+  if (!p) return;
+  THEME_FIELDS.forEach(f => {
+    if (p[f.key]) {
+      const cp = document.getElementById('cpick-' + f.key);
+      const ch = document.getElementById('chex-' + f.key);
+      if (cp) cp.value = p[f.key];
+      if (ch) ch.value = p[f.key];
+    }
+  });
+  if (_livePreview) applyThemePreview();
+}
+async function saveTheme() {
+  const t = {};
+  THEME_FIELDS.forEach(f => {
+    t[f.key] = document.getElementById('chex-' + f.key)?.value || '';
+  });
+  config.theme = t;
+  await saveConfig();
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════════════════ */
+function renderHero() {
+  const h = config.hero || {};
+  const phrasesHtml = (h.phrases||[]).map(ph => `
+    <div class="dyn-row">
+      <input class="form-input phrase-val" value="${escAttr(ph)}">
+      <button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
+    </div>`).join('');
+  const statsHtml = (h.stats||[]).map(s => `
+    <div class="dyn-row">
+      <input class="form-input stat-val" placeholder="Valeur" value="${escAttr(String(s.value||''))}">
+      <input class="form-input stat-lbl" placeholder="Libellé" value="${escAttr(s.label||'')}">
+      <button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>
+    </div>`).join('');
+
+  return `
+    <div class="section-title">🏠 Héro</div>
+    <div class="section-sub">Textes de la section d'accueil</div>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">Nom</label>
+        <input id="heroName" class="form-input" value="${escAttr(h.name||'')}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Badge</label>
+        <input id="heroBadge" class="form-input" value="${escAttr(h.badge||'')}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea id="heroDesc" class="form-textarea">${escHtml(h.description||'')}</textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phrases typewriter</label>
+        <div class="dyn-rows" id="heroPhrasesRows">${phrasesHtml}</div>
+        <button class="btn-add-row" onclick="addPhraseRow()">+ Ajouter une phrase</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Statistiques</label>
+        <div class="dyn-rows" id="heroStatsRows">${statsHtml}</div>
+        <button class="btn-add-row" onclick="addStatRow()">+ Ajouter une stat</button>
+      </div>
+      <div class="save-btn-row">
+        <button class="btn btn-primary" onclick="saveHero()">Sauvegarder</button>
+      </div>
+    </div>
+  `;
+}
+function addPhraseRow() {
+  const row = document.createElement('div');
+  row.className = 'dyn-row';
+  row.innerHTML = `<input class="form-input phrase-val" placeholder="Phrase…"><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('heroPhrasesRows').appendChild(row);
+}
+function addStatRow() {
+  const row = document.createElement('div');
+  row.className = 'dyn-row';
+  row.innerHTML = `<input class="form-input stat-val" placeholder="Valeur"><input class="form-input stat-lbl" placeholder="Libellé"><button class="btn-remove-row" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('heroStatsRows').appendChild(row);
+}
+async function saveHero() {
+  config.hero = config.hero || {};
+  config.hero.name = document.getElementById('heroName').value.trim();
+  config.hero.badge = document.getElementById('heroBadge').value.trim();
+  config.hero.description = document.getElementById('heroDesc').value.trim();
+  config.hero.phrases = [...document.querySelectorAll('.phrase-val')].map(i => i.value.trim()).filter(Boolean);
+  config.hero.stats = [...document.querySelectorAll('#heroStatsRows .dyn-row')].map(row => ({
+    value: row.querySelector('.stat-val').value.trim(),
+    label: row.querySelector('.stat-lbl').value.trim(),
+  })).filter(s => s.value || s.label);
+  await saveConfig();
+}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT SECTION
+═══════════════════════════════════════════════════════ */
+function renderAbout() {
+  const a = config.about || {};
+  return `
+    <div class="section-title">👤 À propos</div>
+    <div class="section-sub">Informations de profil</div>
+    <div class="card">
+      <div class="fields-grid">
+        <div class="form-group"><label class="form-label">Localisation</label><input id="aLoc" class="form-input" value="${escAttr(a.location||'')}"></div>
+        <div class="form-group"><label class="form-label">École</label><input id="aSchool" class="form-input" value="${escAttr(a.school||'')}"></div>
+        <div class="form-group"><label class="form-label">Formation</label><input id="aFormation" class="form-input" value="${escAttr(a.formation||'')}"></div>
+        <div class="form-group"><label class="form-label">Année</label><input id="aYear" class="form-input" value="${escAttr(a.year||'')}"></div>
+        <div class="form-group"><label class="form-label">Email</label><input id="aEmail" class="form-input" value="${escAttr(a.email||'')}"></div>
+        <div class="form-group"><label class="form-label">Recherche</label><input id="aSearch" class="form-input" value="${escAttr(a.search||'')}"></div>
+        <div class="form-group"><label class="form-label">LinkedIn (URL)</label><input id="aLinkedin" class="form-input" value="${escAttr(a.linkedin||'')}"></div>
+        <div class="form-group"><label class="form-label">GitHub (URL)</label><input id="aGithub" class="form-input" value="${escAttr(a.github||'')}"></div>
+      </div>
+      <div class="save-btn-row">
+        <button class="btn btn-primary" onclick="saveAbout()">Sauvegarder</button>
+      </div>
+    </div>
+  `;
+}
+async function saveAbout() {
+  config.about = {
+    location: document.getElementById('aLoc').value.trim(),
+    school: document.getElementById('aSchool').value.trim(),
+    formation: document.getElementById('aFormation').value.trim(),
+    year: document.getElementById('aYear').value.trim(),
+    email: document.getElementById('aEmail').value.trim(),
+    search: document.getElementById('aSearch').value.trim(),
+    linkedin: document.getElementById('aLinkedin').value.trim(),
+    github: document.getElementById('aGithub').value.trim(),
+  };
+  await saveConfig();
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECURITY SECTION
+═══════════════════════════════════════════════════════ */
+function renderSecurity() {
+  const currentUser = (config.admin || {}).username || '';
+  return `
+    <div class="section-title">🔑 Sécurité</div>
+    <div class="section-sub">Changer l'identifiant et/ou le mot de passe administrateur</div>
+    <div class="card security-card">
+      <div class="form-group">
+        <label class="form-label">Mot de passe actuel</label>
+        <input id="secCurrent" class="form-input" type="password" placeholder="Mot de passe actuel" autocomplete="current-password">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nouvel identifiant</label>
+        <input id="secUser" class="form-input" value="${escAttr(currentUser)}" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nouveau mot de passe</label>
+        <input id="secNew" class="form-input" type="password" placeholder="Laisser vide pour ne pas changer" autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirmer</label>
+        <input id="secConfirm" class="form-input" type="password" placeholder="Confirmer le nouveau mot de passe" autocomplete="new-password">
+      </div>
+      <div class="save-btn-row">
+        <button class="btn btn-primary" onclick="savePassword()">Enregistrer</button>
+      </div>
+      <div id="secError" style="color:var(--danger);font-size:13px;margin-top:8px;min-height:18px"></div>
+    </div>
+  `;
+}
+async function savePassword() {
+  const current = document.getElementById('secCurrent').value;
+  const newUser = document.getElementById('secUser').value.trim();
+  const nw = document.getElementById('secNew').value;
+  const confirm = document.getElementById('secConfirm').value;
+  const err = document.getElementById('secError');
+  err.textContent = '';
+  if (!current) { err.textContent = '❌ Renseigne le mot de passe actuel'; return; }
+  if (nw && nw !== confirm) { err.textContent = '❌ Les nouveaux mots de passe ne correspondent pas'; return; }
+  const res = await apiPost('api/admin/credentials', {
+    current_password: current,
+    new_username: newUser,
+    new_password: nw || current,
+  }).catch(() => null);
+  if (res && res.ok) {
+    toast('✅ Identifiants mis à jour', 'success');
+    document.getElementById('secCurrent').value = '';
+    document.getElementById('secNew').value = '';
+    document.getElementById('secConfirm').value = '';
+  } else {
+    err.textContent = '❌ ' + ((res && res.error) || 'Erreur');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════════ */
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function escAttr(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

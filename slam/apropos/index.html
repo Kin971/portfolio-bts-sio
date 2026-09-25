@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="À propos — Raphael TILACDHARY JEAN, BTS SIO SLAM" />
+  <title>À propos — Portfolio BTS SIO SLAM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../config.js"></script>
+</head>
+<body data-page="slam-apropos">
+
+  <canvas id="matrixCanvas"></canvas>
+  <div id="bootScreen"><div class="boot-box"></div><button class="boot-skip" type="button">passer ⏭</button></div>
+  <div id="pageTransition"><span class="pt-text">chargement…</span></div>
+  <div id="updateBanner"><span class="spin"></span><span>Mise à jour détectée — rechargement…</span></div>
+  <div id="progress-bar"></div>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../" class="nav-logo"><span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./" class="nav-link active">À propos</a></li>
+        <li><a href="../competences/" class="nav-link">Compétences</a></li>
+        <li><a href="../projets/" class="nav-link">Projets</a></li>
+        <li><a href="../referentiel/" class="nav-link">Référentiel</a></li>
+        <li><a href="../cybersecurite/" class="nav-link">Cybersécurité</a></li>
+        <li><a href="../../contact/" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="../../sisr/" class="nav-link" title="Parcours SISR">🎓 SISR →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height:auto; padding:9rem 0 2rem;">
+    <div class="hero-bg"><div class="hero-dots"></div><div class="hero-glow"></div></div>
+    <div class="container">
+      <div class="hero-text" data-animate style="padding:0;">
+        <span class="hero-badge">01 · À propos</span>
+        <h1>Qui je <span class="gradient-text">suis</span></h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:300px 1fr; gap:3rem; align-items:start;" class="about-grid">
+
+        <!-- Fiche compacte -->
+        <div data-animate>
+          <div class="avatar">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="36" r="22" fill="var(--neon)" opacity="0.9"/>
+              <ellipse cx="50" cy="88" rx="36" ry="20" fill="var(--neon)" opacity="0.7"/>
+            </svg>
+            <span class="avatar-hint">Photo à ajouter</span>
+          </div>
+          <div class="profile-card">
+            <div class="profile-row"><span>📍</span><span>Localisation</span><strong id="profileLocation">Basse-Terre, Guadeloupe</strong></div>
+            <div class="profile-row"><span>🏫</span><span>École</span><strong id="profileSchool">Les Persévérants</strong></div>
+            <div class="profile-row"><span>🎓</span><span>Formation</span><strong id="profileFormation">BTS SIO SLAM</strong></div>
+            <div class="profile-row"><span>📅</span><span>Année</span><strong id="profileYear">1ère année</strong></div>
+            <div class="profile-row"><span>✉️</span><span>Email</span><strong><a id="profileEmail" href="mailto:raphtil971@gmail.com">raphtil971@gmail.com</a></strong></div>
+            <div class="profile-row"><span>💼</span><span>Recherche</span><strong id="profileSearch">Stage (à préciser)</strong></div>
+          </div>
+        </div>
+
+        <!-- Récit -->
+        <div data-animate data-delay="150">
+          <p class="about-intro">
+            Je suis étudiant en <strong>BTS SIO option SLAM</strong>, passionné par le développement
+            logiciel depuis plusieurs années. En parallèle des travaux encadrés au lycée, je réalise
+            des projets personnels pour aller plus loin — notamment en <strong>Java et POO</strong>
+            (Programmation Orientée Objet) et sur la <strong>stack web</strong> (HTML, CSS, PHP).
+          </p>
+          <p>
+            Mon <strong>grand projet personnel</strong> est <strong>ZARMY</strong> : un simulateur
+            RPG en Java qui met en œuvre la <strong>POO avancée</strong> et le <strong>pattern Stratégie</strong>
+            pour des comportements polymorphes (combat, déplacement, soins). C'est le fil rouge que
+            je présente en vedette dans la partie <a href="../projets/">Projets</a>.
+          </p>
+          <p>
+            En parallèle, j'explore la <strong>cybersécurité</strong> : cryptologie, cracking
+            de mots de passe, sécurité applicative — développée dans la partie
+            <a href="../cybersecurite/">Cybersécurité</a>. Ce double ancrage développement + sécurité
+            me permet d'écrire du code plus robuste et de mieux anticiper les vulnérabilités.
+          </p>
+          <div class="tags">
+            <span class="tag">🐍 Python</span>
+            <span class="tag">☕ Java</span>
+            <span class="tag">🌐 Web</span>
+            <span class="tag">🗄️ SQL</span>
+            <span class="tag">🔒 Cybersécurité</span>
+            <span class="tag">🤖 IA</span>
+          </div>
+
+          <!-- Trajectoire : ce que la petite frise ci-dessous n'a pas ailleurs
+               sur le site — situe la 1ère année dans le parcours complet. -->
+          <div style="margin-top:2.5rem;">
+            <div class="cv-section-title" style="margin-bottom:1rem;">Trajectoire</div>
+            <div class="cv-timeline">
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">BTS SIO — Option SLAM</span>
+                  <span class="cv-timeline-date">2025 – 2026</span>
+                </div>
+                <div class="cv-timeline-sub">Où vous êtes actuellement — développement logiciel, bases de données</div>
+              </div>
+              <div class="cv-timeline-item">
+                <div class="cv-timeline-head">
+                  <span class="cv-timeline-title">BTS SIO — Option SISR</span>
+                  <span class="cv-timeline-date">2026 – 2027</span>
+                </div>
+                <div class="cv-timeline-sub">La suite — <a href="../../sisr/">page dédiée déjà en ligne</a>, systèmes et réseaux</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" style="padding:2.5rem 0;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <span style="color:var(--muted); font-size:0.9rem;">Suite logique →</span>
+      <a href="../competences/" class="btn btn-outline">Voir mes compétences techniques</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span><p>Portfolio BTS SIO SLAM</p></div>
+        <nav class="footer-nav">
+          <a href="../">Accueil</a>
+          <a href="../competences/">Compétences</a>
+          <a href="../projets/">Projets</a>
+          <a href="../referentiel/">Référentiel</a>
+          <a href="../cybersecurite/">Cybersécurité</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Raphael TILACDHARY JEAN</span><span>Fait avec 💙</span></div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <div id="toast"></div>
+
+  <script src="../../js/script.js"></script>
+  <script src="../../js/effects.js"></script>
+</body>
+</html>

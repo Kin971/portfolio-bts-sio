@@ -1,0 +1,288 @@
+{
+  "theme": {
+    "primary": "#388bfd",
+    "primaryH": "#58a6ff",
+    "accent": "#3fb950",
+    "bg": "#0d1117",
+    "surface": "#161b22",
+    "gradientStart": "#388bfd",
+    "gradientEnd": "#7c3aed"
+  },
+  "hero": {
+    "badge": "🎓 BTS SIO · Option SLAM · 1ère Année",
+    "name": "Raphael",
+    "phrases": [
+      "Étudiant BTS SIO — Option SLAM",
+      "Passionné de Cybersécurité & Réseaux",
+      "Développeur Python / Java",
+      "Créateur du jeu ZARMY ⚔️"
+    ],
+    "description": "Étudiant passionné par le développement logiciel, les bases de données et la cybersécurité. Je conçois des applications web complètes, maîtrise la POO Java et explore activement la sécurité informatique.",
+    "stats": [
+      {
+        "value": 5,
+        "label": "Projets"
+      },
+      {
+        "value": 6,
+        "label": "Langages"
+      },
+      {
+        "value": 1,
+        "label": "An de BTS"
+      }
+    ]
+  },
+  "about": {
+    "location": "Basse-Terre, Guadeloupe",
+    "school": "Les Persévérants — Basse-Terre",
+    "formation": "BTS SIO — Option SLAM",
+    "year": "1ère année",
+    "email": "votre@email.tld",
+    "search": "Stage (à préciser)",
+    "linkedin": "https://www.linkedin.com/in/rapha%C3%ABl-tilacdhary-jean-5a16b4389/",
+    "github": "https://github.com/raphaeltilacdhary-jean-dot",
+    "nextTrack": "2e année en option SISR — page dédiée"
+  },
+  "projects": [
+    {
+      "id": "zarmy",
+      "featured": true,
+      "featuredLabel": "Grand projet",
+      "visible": true,
+      "icon": "⚔️",
+      "title": "ZARMY — Simulateur RPG",
+      "description": "Jeu de rôle en Java démontrant la maîtrise de la programmation orientée objet (POO) : classes, héritage, polymorphisme. Pattern Stratégie pour les comportements des personnages (combat, déplacement, soin). 5 types de personnages, héritage multi-niveaux, interfaces Java.",
+      "techs": [
+        "Java",
+        "POO",
+        "Design Pattern"
+      ],
+      "kpis": [
+        {
+          "value": "13",
+          "label": "classes Java"
+        },
+        {
+          "value": "3",
+          "label": "interfaces"
+        },
+        {
+          "value": "5",
+          "label": "types de perso"
+        }
+      ],
+      "competences": [
+        "B2.1 Développement applicatif",
+        "B2.5 Conception logicielle"
+      ],
+      "links": [
+        {
+          "label": "📄 Classe principale",
+          "path": "BTS SIO COURS\\1ere Année\\Cisneros\\En désordre\\javatp\\ZarmyPrincipal.java",
+          "style": "main"
+        },
+        {
+          "label": "📄 Classe abstraite",
+          "path": "BTS SIO COURS\\1ere Année\\Cisneros\\En désordre\\javatp\\Personnage.java",
+          "style": "sec"
+        }
+      ],
+      "categories": [
+        "java",
+        "grand"
+      ],
+      "track": "slam"
+    },
+    {
+      "id": "guide-sql",
+      "featured": false,
+      "visible": true,
+      "icon": "🗄️",
+      "title": "Guide SQL Exhaustif",
+      "description": "Référence complète de 1 100+ lignes couvrant l'intégralité du SQL : DDL (CREATE, ALTER, DROP), DML (INSERT, UPDATE), DQL avancé (jointures, sous-requêtes, GROUP BY, HAVING), vues, procédures stockées, triggers, transactions et gestion des droits utilisateurs.",
+      "techs": [
+        "SQL",
+        "MySQL",
+        "MariaDB"
+      ],
+      "kpis": [
+        {
+          "value": "1 106",
+          "label": "lignes SQL"
+        },
+        {
+          "value": "24",
+          "label": "sections"
+        },
+        {
+          "value": "1",
+          "label": "base e-commerce"
+        }
+      ],
+      "competences": [
+        "B2.2 Gestion des données",
+        "B2.6 Sécurité (GRANT/REVOKE)"
+      ],
+      "links": [
+        {
+          "label": "📄 Comm.sql",
+          "path": "BTS SIO COURS\\1ere Année\\Cisneros\\D2-BASE DE DONNEES\\Comm.sql",
+          "style": "main"
+        }
+      ],
+      "categories": [
+        "database"
+      ],
+      "track": "slam"
+    },
+    {
+      "id": "scripts-python",
+      "featured": false,
+      "visible": true,
+      "icon": "🐍",
+      "title": "Scripts Python — Fondamentaux",
+      "description": "Collection de 20+ scripts Python couvrant les fondamentaux de la programmation : variables, conditions, boucles, chaînes de caractères, jeux de hasard, structures de données. Inclut 5 projets graphiques avec la librairie Turtle (spirales, formes géométriques, animations).",
+      "techs": [
+        "Python",
+        "Turtle",
+        "Algorithmique"
+      ],
+      "kpis": [
+        {
+          "value": "20+",
+          "label": "scripts"
+        },
+        {
+          "value": "5",
+          "label": "projets Turtle"
+        },
+        {
+          "value": "100%",
+          "label": "fonctionnels"
+        }
+      ],
+      "competences": [
+        "B2.1 Algorithmique de base",
+        "B6 Développement professionnel"
+      ],
+      "links": [
+        {
+          "label": "🎨 Spirale Turtle",
+          "path": "BTS SIO COURS\\1ere Année\\math\\Python\\Turtle01_Spirale.py",
+          "style": "main"
+        },
+        {
+          "label": "📁 Tous les scripts",
+          "path": "BTS SIO COURS\\1ere Année\\math\\Python",
+          "style": "sec"
+        }
+      ],
+      "categories": [
+        "python"
+      ],
+      "track": "slam"
+    },
+    {
+      "id": "sites-web",
+      "featured": false,
+      "visible": true,
+      "icon": "🌐",
+      "title": "Sites Web — HTML / CSS",
+      "description": "Plusieurs projets web statiques : site personnel avec CSS personnalisé, projet Flexbox & Grid pour la mise en page responsive, et évaluation web complète. Introduction aux bonnes pratiques du front-end et au design adaptatif.",
+      "techs": [
+        "HTML5",
+        "CSS3",
+        "Flexbox"
+      ],
+      "kpis": [
+        {
+          "value": "3+",
+          "label": "sites créés"
+        },
+        {
+          "value": "Flexbox",
+          "label": "maîtrisé"
+        },
+        {
+          "value": "Responsive",
+          "label": "design"
+        }
+      ],
+      "competences": [
+        "B1.3 Présence en ligne",
+        "B2.1 Développement web"
+      ],
+      "links": [
+        {
+          "label": "🌐 Mon site HTML",
+          "path": "BTS SIO COURS\\1ere Année\\SIO Cybersécurité Mme Guiollet\\1er Semestre\\TC2D\\Site statique\\Mon site.html",
+          "style": "main"
+        }
+      ],
+      "categories": [
+        "web"
+      ],
+      "track": "slam"
+    },
+    {
+      "id": "exercices-php",
+      "featured": false,
+      "visible": true,
+      "icon": "🐘",
+      "title": "Exercices PHP — Tableaux",
+      "description": "Série d'exercices PHP centrés sur la manipulation de tableaux : création, parcours (foreach, for), tableaux associatifs, fonctions de tri et de recherche. Introduction au développement web dynamique côté serveur.",
+      "techs": [
+        "PHP",
+        "Web dynamique"
+      ],
+      "kpis": [
+        {
+          "value": "5+",
+          "label": "exercices"
+        },
+        {
+          "value": "Tableaux",
+          "label": "PHP"
+        },
+        {
+          "value": "Fonctions",
+          "label": "intégrées"
+        }
+      ],
+      "competences": [
+        "B2.1 Développement web back-end"
+      ],
+      "links": [
+        {
+          "label": "📄 Exercice 1",
+          "path": "BTS SIO COURS\\1ere Année\\SIO Cybersécurité Mme Guiollet\\exercice php\\Exercice1_Tableaux.php",
+          "style": "main"
+        },
+        {
+          "label": "📁 Tous les TP",
+          "path": "BTS SIO COURS\\1ere Année\\SIO Cybersécurité Mme Guiollet\\exercice php",
+          "style": "sec"
+        }
+      ],
+      "categories": [
+        "web"
+      ],
+      "track": "slam"
+    }
+  ],
+  "admin": {
+    "username": "CHANGEZ-MOI",
+    "salt": "genere-au-premier-lancement",
+    "password_hash": "genere-au-premier-lancement"
+  },
+  "rapport": {
+    "title": "Rapport de stage — Mairie de Gourbeyre",
+    "description": "Rapport de stage réalisé à la Mairie de Gourbeyre dans le cadre du BTS SIO.",
+    "filename": "Rapport_de_stage_BTS_SIO_Mairie_de_Gourbeyre.docx",
+    "url": "/files/Rapport_de_stage_BTS_SIO_Mairie_de_Gourbeyre.docx",
+    "preview": "BTS Services Informatiques aux Organisations\nOption SISR — Solutions d'Infrastructure, Systèmes et Réseaux\nLycée Les Persévérants — Guadeloupe\n\n\n\n\nRAPPORT DE STAGE\nPremière année\n\n\n\nMairie de Gourbeyre\nService informatique\n\n\n\n\nRédigé par : Raphaël TILACDHARY JEAN\nTuteur en entreprise : M. Alexandre EDMON\nPériode de stage : du [18/05/2007] au [20/06/2007]\nAnnée scolaire [2025 – 2026]\n\n\nRemerciements\nJe tiens tout d'abord à remercier l'ensemble du personnel de la mairie de Gourbeyre pour l'accueil qui m'a été réservé durant toute la durée de mon stage, ainsi que pour la disponibilité dont chacun a fait preuve à mon égard.\nJe remercie tout particulièrement mon tuteur, M. Alexandre EDMON, technicien informatique de la collectivité, qui m'a accompagné au quotidien. Il m'a fait confiance en m'associant à ses interventions, a pris le temps de m'expliquer sa méthode de travail et m'a transmis de nombreux réflexes professionnels que je n'aurais pas pu acquérir en cours.\nJe remercie également les agents des différents services, ainsi que le personnel des écoles maternelles, pour leur patience et leur bienveillance lors de mes premières interventions.\nEnfin, je remercie l'équipe pédagogique du lycée Les Persévérants pour la préparation et le suivi de ce stage.\n\nSommaire\n(Clic droit sur le sommaire → « Mettre à jour les champs » pour générer la table des matières sous Word.)\nRemerciements1\nSommaire1\nIntroduction1\nI. Présentation de la structure d'accueil1\n1. La commune de Gourbeyre1\n2. Organisation générale1\n3. Le service informatique1\n4. L'environnement technique1\nII. Les missions réalisées1\n1. La gestion des interventions1\na. Apprendre à diagnostiquer rapidement1\n2. Le support sur les imprimantes et copieurs multifonctions1\n3. L'assistance et l'accompagnement des agents1\n4. Les interventions sur les sites extérieurs1\na. Les écoles maternelles1\nb. Le câblage réseau du stade municipal1\n5. La découverte de l'administration réseau avec pfSense1\na. Le rôle de pfSense1\nb. L'adressage et le découpage en sous-réseaux1\nc. La configuration du service DHCP et des baux1\nIII. Bilan du stage1\n1. Les compétences acquises1\n2. Les compétences relationnelles et professionnelles1\n3. Les difficultés rencontrées1\n4. Apport pour mon projet professionnel1\nConclusion1\nGlossaire1\nAnnexes1\n\n\nIntroduction\nDans le cadre de ma première année de BTS Services Informatiques aux Organisations, option SISR, j'ai effectué un stage d'une durée de 5 semaines au sein du service informatique de la mairie de Gourbeyre.\nCe stage avait pour objectif principal de me confronter à la réalité du métier de technicien informatique, en dehors du cadre théorique des travaux pratiques réalisés en cours. Il s'agissait pour moi de découvrir comment s'organise le support informatique dans une collectivité territoriale, où les utilisateurs ne sont pas des informaticiens et où les besoins doivent être traités rapidement pour ne pas bloquer le service public.\nAu sein de la mairie, j'ai été intégré au service informatique et placé sous la responsabilité de M. Alexandre EDMON. J'ai pu l'accompagner sur l'ensemble de ses missions : la prise en charge des interventions de dépannage, l'assistance aux agents, les déplacements sur les sites extérieurs de la commune, et en fin de stage la découverte de l'administration réseau à travers le pare-feu pfSense.\nCe rapport présente dans un premier temps la structure d'accueil et son environnement informatique. Il détaille ensuite les missions qui m'ont été confiées, avant de dresser un bilan des compétences acquises et de l'apport de ce stage dans mon projet professionnel.\n\nI. Présentation de la structure d'accueil\n1. La commune de Gourbeyre\nGourbeyre est une commune de la Basse-Terre, en Guadeloupe. Comme toute collectivité territoriale, elle assure un ensemble de missions de service public auprès de ses habitants : état civil, urbanisme, affaires scolaires, services techniques, action sociale, gestion des équipements sportifs et culturels.\n2. Organisation générale\nLa mairie est organisée en plusieurs services, chacun disposant de ses propres postes de travail et de ses propres logiciels métiers. À cette organisation administrative s'ajoutent les sites rattachés à la commune, qui dépendent eux aussi du service informatique : les écoles maternelles et élémentaires, les équipements sportifs et les bâtiments techniques.\n3. Le service informatique\nLe service informatique de la commune est réduit : il repose essentiellement sur mon tuteur, M. Alexandre EDMON, qui assure à lui seul le support technique de l'ensemble des sites de la ville.\nCette configuration a une conséquence directe sur la manière de travailler. Le technicien n'est pas spécialisé sur un domaine précis : il doit être polyvalent et savoir intervenir aussi bien sur un poste de travail que sur une imprimante multifonction, un problème de connexion réseau, un compte utilisateur ou un chantier de câblage. Dans une petite structure comme celle-ci, le technicien informatique est l'interlocuteur unique de tous les utilisateurs, quel que soit le problème.\n4. L'environnement technique\nLe parc informatique de la commune est réparti entre le bâtiment principal de la mairie et les sites extérieurs. Il se compose principalement :\nde postes de travail fixes et de quelques ordinateurs portables affectés aux agents ;\nd'imprimantes et de copieurs multifonctions partagés en réseau, assurant l'impression, la copie et la numérisation ;\nd'équipements réseau (baies de brassage, commutateurs, points d'accès sans fil) répartis sur les différents bâtiments ;\nd'un pare-feu pfSense assurant le filtrage, le routage et la distribution des adresses IP.\n\nII. Les missions réalisées\nMon stage s'est articulé autour de deux grandes phases. La première, la plus longue, a été consacrée au support et aux interventions de proximité. La seconde, en fin de stage, portait sur l'administration réseau à travers le pare-feu pfSense.\n1. La gestion des interventions\nLa première compétence que mon tuteur m'a transmise est la gestion des interventions. Les demandes des agents arrivaient au service par différents canaux : appel téléphonique, message, ou simplement un agent qui se déplaçait pour signaler un problème.\nM. EDMON m'a appris à ne pas traiter ces demandes dans le désordre, mais à suivre une démarche structurée :\nrecueillir précisément la demande auprès de l'utilisateur : quel équipement, depuis quand, ce qui a changé ;\névaluer l'urgence et l'impact de l'incident, notamment lorsqu'il bloque l'accueil du public ou un service entier ;\nreproduire le problème pour le constater soi-même plutôt que de se fier uniquement à la description ;\nappliquer une résolution, en commençant toujours par les causes les plus simples et les plus fréquentes ;\nvérifier avec l'utilisateur que le problème est bien résolu, et lui expliquer ce qui s'est passé.\nCe dernier point m'a particulièrement marqué. Expliquer à l'agent l'origine de la panne, en évitant le vocabulaire technique, permet souvent d'éviter que le problème ne se reproduise et rend l'utilisateur plus autonome. La dimension relationnelle du métier est au moins aussi importante que la dimension technique.\na. Apprendre à diagnostiquer rapidement\nL'objectif que mon tuteur m'a fixé n'était pas seulement de résoudre les incidents, mais de les résoudre vite. Il m'a expliqué qu'une grande partie des pannes rencontrées sur le terrain sont récurrentes et que le réflexe le plus efficace consiste à écarter d'abord les causes les plus simples avant d'envisager une panne matérielle ou logicielle complexe.\nJ'ai donc progressivement construit ma propre méthode de vérification : contrôler l'alimentation et les branchements, vérifier l'état des voyants, tester la connectivité réseau, puis seulement ensuite examiner la configuration logicielle. Cette progression du plus simple vers le plus complexe m'a fait gagner un temps considérable au fil des semaines.\n2. Le support sur les imprimantes et copieurs multifonctions\nLes incidents liés aux imprimantes et aux copieurs multifonctions ont représenté une part importante des interventions auxquelles j'ai participé. Ces équipements sont utilisés en permanence par les services, et leur indisponibilité bloque rapidement le travail des agents.\nLes deux symptômes les plus fréquemment signalés étaient :\nl'impossibilité d'imprimer : les documents restaient dans la file d'attente ou l'imprimante n'apparaissait plus comme disponible ;\nun dysfonctionnement de la numérisation : le scanner ne renvoyait pas le document, ou le fichier n'arrivait pas à sa destination.\nDans la très grande majorité des cas, l'origine du problème n'était pas une panne matérielle mais un problème de connexion. J'ai identifié trois causes principales, qui revenaient régulièrement :\nun câble réseau ou USB mal branché, débranché lors d'un ménage ou d'un déplacement de mobilier, ou simplement mal enfiché dans la prise ;\nune perte de communication entre le poste et l'imprimante, l'équipement n'étant plus joignable sur le réseau ;\nun blocage interne de l'imprimante, que le redémarrage de l'équipement suffisait à résoudre.\nLe redémarrage de l'imprimante s'est révélé être la solution la plus souvent efficace. Cela peut sembler anecdotique, mais mon tuteur m'en a donné la logique : un redémarrage remet à zéro la file d'impression, réinitialise la carte réseau de l'équipement et lui permet de récupérer une configuration réseau valide. C'est un geste rapide, sans risque, qui résout un grand nombre de cas avant même d'envisager une manipulation plus lourde.\nLorsque le redémarrage ne suffisait pas, je poursuivais le diagnostic en vérifiant l'état de la connexion de l'équipement, puis la configuration de l'imprimante sur le poste de l'utilisateur.\n3. L'assistance et l'accompagnement des agents\nUne autre partie de mes missions ne relevait pas de la panne technique mais de l'accompagnement à l'usage. Les agents de la mairie ne sont pas des informaticiens : ils utilisent l'outil informatique comme un moyen d'accomplir leurs missions, et se retrouvent parfois bloqués face à une manipulation qu'ils ne maîtrisent pas.\nJ'ai ainsi accompagné plusieurs agents dans l'utilisation de leur poste de travail. L'intervention la plus représentative concerne un agent qui devait poser des jours de congé depuis son ordinateur de fonction. Il ne savait pas du tout comment procéder et n'avait jamais utilisé cette fonctionnalité.\nPlutôt que de réaliser la démarche à sa place, j'ai choisi de le guider pas à pas : je lui ai montré où accéder à l'outil, comment renseigner sa demande, comment la valider et comment vérifier ensuite qu'elle avait bien été transmise. J'ai pris le temps de refaire la manipulation avec lui afin qu'il puisse la reproduire seul par la suite.\nCette intervention m'a fait comprendre une différence essentielle entre dépanner et accompagner. Résoudre le problème à la place de l'utilisateur est plus rapide sur le moment, mais garantit que la demande reviendra. Prendre quelques minutes de plus pour expliquer rend l'agent autonome et allège la charge du service informatique sur le long terme. C'est une posture que mon tuteur appliquait systématiquement et que j'ai adoptée.\n4. Les interventions sur les sites extérieurs\nLe périmètre du service informatique ne se limite pas au bâtiment de la mairie. J'ai régulièrement accompagné mon tuteur en déplacement sur les autres sites de la commune.\na. Les écoles maternelles\nNous nous sommes rendus à plusieurs reprises à l'école maternelle Luce Joseph, située à proximité de la mairie, ainsi qu'à un second établissement scolaire voisin. Les interventions y étaient de même nature qu'en mairie : dépannage de postes, problèmes d'impression, vérification des connexions réseau et assistance auprès du personnel enseignant et administratif.\nCes déplacements m'ont montré que le service informatique d'une commune couvre également les établissements scolaires dont elle a la charge, ce qui élargit considérablement le parc à maintenir.\nb. Le câblage réseau du stade municipal\nL'intervention la plus marquante de mon stage a été la participation à un chantier de câblage réseau au stade de Gourbeyre. Il s'agissait de tirer des câbles Ethernet afin de desservir en réseau les locaux de l'équipement sportif.\nJ'ai pu y découvrir le côté physique et concret du métier, très différent du support de proximité :\nle repérage du cheminement des câbles entre le point de départ et les postes à desservir ;\nle tirage des câbles, en tenant compte des contraintes du bâtiment et des passages existants ;\nle raccordement des extrémités et le repérage des liaisons ;\nle test des liaisons pour valider la continuité et le bon fonctionnement avant la mise en service.\nCe chantier a fait le lien direct avec ce que j'avais étudié en cours sur les réseaux locaux et les supports de transmission. Manipuler soi-même le câble, comprendre pourquoi une longueur ou un cheminement pose problème, tester une liaison qui ne fonctionne pas : cela donne une réalité concrète à la couche physique du modèle OSI.\nJ'y ai surtout mesuré l'étendue du rôle de mon tuteur : en intervenant successivement en mairie, dans les écoles et sur les équipements sportifs, il assure de fait la fonction de technicien informatique pour l'ensemble de la ville de Gourbeyre, ce qui suppose de bien connaître à la fois le réseau et le territoire de la commune.\n5. La découverte de l'administration réseau avec pfSense\nVers la fin de mon stage, mon tuteur a estimé que j'avais acquis suffisamment d'autonomie sur les interventions de proximité pour aborder un sujet plus technique : l'administration du pare-feu pfSense utilisé par la collectivité.\na. Le rôle de pfSense\npfSense est une distribution libre, basée sur FreeBSD, dédiée à la fonction de pare-feu et de routeur. Elle s'administre principalement à travers une interface web et regroupe plusieurs fonctions essentielles à un réseau d'entreprise : le filtrage du trafic entre les différentes zones du réseau, le routage entre les sous-réseaux, la traduction d'adresses (NAT) vers Internet et la distribution automatique des adresses IP via le service DHCP.\nb. L'adressage et le découpage en sous-réseaux\nJ'ai d'abord travaillé sur la logique d'adressage. Mon tuteur m'a montré pourquoi un réseau ne doit pas être laissé « à plat » et pourquoi il est préférable de le découper en plusieurs sous-réseaux.\nCe découpage répond à plusieurs objectifs :\nséparer les usages et les populations d'utilisateurs, afin qu'ils ne partagent pas le même espace d'adressage ;\nlimiter la propagation du trafic de diffusion (broadcast) à l'intérieur de chaque segment ;\nappliquer des règles de filtrage différenciées selon les zones, et donc contrôler ce qui peut communiquer avec quoi ;\nfaciliter le diagnostic, en identifiant immédiatement à quel segment appartient une machine à partir de son adresse IP.\nJ'ai ainsi repris et approfondi les notions vues en cours : adresse réseau, adresse de diffusion, masque de sous-réseau, plage d'adresses attribuables et passerelle par défaut. Les manipuler sur une infrastructure réelle, et non sur un exercice, m'a aidé à bien mieux les assimiler.\nc. La configuration du service DHCP et des baux\nJ'ai ensuite travaillé sur le service DHCP intégré à pfSense. Ce service attribue automatiquement une configuration réseau aux machines qui se connectent : adresse IP, masque, passerelle et serveurs DNS.\nSur ce point, j'ai appris à :\ndéfinir la plage d'adresses distribuées pour un sous-réseau donné ;\ncomprendre la notion de bail DHCP : une adresse n'est pas attribuée définitivement mais prêtée pour une durée déterminée, puis renouvelée par le client ;\ncréer des baux statiques, c'est-à-dire réserver une adresse IP fixe pour un équipement identifié par son adresse MAC ;\nconsulter la liste des baux en cours pour savoir quelles machines sont actives sur le réseau et avec quelle adresse.\nLa réservation d'adresse par bail statique m'a paru particulièrement utile en contexte professionnel. Elle permet de garantir qu'un équipement partagé — une imprimante réseau ou un serveur d'impression, par exemple — conserve toujours la même adresse IP, tout en centralisant la configuration sur le pare-feu plutôt que sur l'équipement lui-même. J'ai d'ailleurs fait le lien avec les incidents d'impression rencontrés en début de stage : un équipement dont l'adresse change devient injoignable pour les postes qui le référencent.\nLa consultation de la table des baux s'est aussi révélée être un excellent outil de diagnostic : elle permet de vérifier immédiatement si une machine a bien obtenu une configuration réseau, ce qui oriente très vite le dépannage.\n\nIII. Bilan du stage\n1. Les compétences acquises\nCe stage a été l'occasion de mettre en pratique plusieurs compétences du référentiel du BTS SIO, en particulier celles du bloc « Support et mise à disposition de services informatiques » et celles de l'option SISR.\nCompétence du référentiel\nMise en œuvre pendant le stage\nGérer le patrimoine informatique\nRecensement et suivi des équipements des services de la mairie et des écoles : postes, imprimantes multifonctions, points réseau.\nRépondre aux incidents et aux demandes d'assistance\nPrise en charge des interventions signalées par les agents, diagnostic, résolution et compte rendu au tuteur.\nDévelopper la présence en ligne / accompagner les utilisateurs\nAccompagnement des agents dans l'utilisation des outils métiers (portail RH, gestion des congés, périphériques).\nTravailler en mode projet\nParticipation au chantier de câblage réseau du stade municipal : préparation du matériel, tirage, sertissage et tests.\nMettre à disposition des utilisateurs un service informatique\nRemise en service d'équipements, vérification des accès réseau après intervention.\nAdministrer les réseaux (SISR)\nDécouverte de pfSense : adressage et découpage en sous-réseaux, configuration du service DHCP et des baux, lecture des règles de filtrage.\n\n2. Les compétences relationnelles et professionnelles\nAu-delà de la technique, ce stage m'a beaucoup apporté sur le plan professionnel. J'ai appris à communiquer avec des utilisateurs non informaticiens, à adapter mon vocabulaire, à écouter une demande formulée de manière imprécise et à en extraire l'information utile.\nJ'ai également gagné en autonomie et en organisation. Progressivement, j'ai été capable de prendre en charge seul certaines interventions simples et de rendre compte ensuite à mon tuteur, ce qui a représenté une véritable marque de confiance.\n3. Les difficultés rencontrées\nLes débuts ont été un peu déstabilisants. En cours, les exercices sont cadrés et l'énoncé décrit le problème. Sur le terrain, l'utilisateur signale un symptôme, pas une cause, et il faut apprendre à poser les bonnes questions pour remonter à l'origine réelle de la panne.\nJ'ai aussi dû apprendre à intervenir sur des équipements que je ne connaissais pas, sans documentation détaillée. Cela m'a obligé à développer une méthode de recherche et à observer attentivement la manière de procéder de mon tuteur avant de me lancer moi-même.\n\n4. Apport pour mon projet professionnel\nCe stage a renforcé mon intérêt pour l'option SISR. La partie qui m'a le plus intéressée est incontestablement la découverte de pfSense et de l'administration réseau, qui correspond directement à ce vers quoi je souhaite m'orienter.\nIl m'a également fait découvrir un environnement professionnel que je connaissais mal, celui de la collectivité territoriale, où l'informatique est au service direct de l'usager et où le technicien doit faire preuve d'une grande polyvalence.\nPour ma deuxième année, je souhaite approfondir l'administration système et réseau : configuration avancée des pare-feu et des règles de filtrage, mise en place de VLAN, supervision et sécurisation des infrastructures.\n\nConclusion\nCe stage de première année au sein de la mairie de Gourbeyre a pleinement répondu à mes attentes. J'y ai découvert le métier de technicien informatique dans un contexte réel et mesuré l'écart entre la théorie enseignée en cours et la pratique quotidienne du terrain.\nJ'y ai appris une méthode de travail : recueillir précisément une demande, diagnostiquer en partant du plus simple, résoudre efficacement et expliquer à l'utilisateur. J'ai également pu aborder des domaines très variés, du dépannage d'imprimante au câblage réseau, jusqu'à l'administration d'un pare-feu pfSense.\nL'accompagnement de M. Alexandre EDMON a été déterminant. En me confiant progressivement des responsabilités et en prenant systématiquement le temps de m'expliquer le pourquoi de chaque action, il m'a permis de gagner en autonomie et en confiance.\nIl confirme mon orientation vers l'option SISR et me donne une base concrète sur laquelle m'appuyer pour la suite de ma formation.\n\nGlossaire\nBail DHCP : durée pendant laquelle une adresse IP est attribuée à une machine par le serveur DHCP avant d'être renouvelée ou libérée.\nDHCP (Dynamic Host Configuration Protocol) : protocole permettant d'attribuer automatiquement une configuration réseau (adresse IP, masque, passerelle, DNS) aux machines d'un réseau.\nEthernet : technologie de réseau local filaire, s'appuyant notamment sur des câbles à paires torsadées et des connecteurs RJ45.\nMasque de sous-réseau : valeur qui détermine, dans une adresse IP, la partie identifiant le réseau et celle identifiant la machine.\nNAT (Network Address Translation) : mécanisme de traduction d'adresses permettant à plusieurs machines d'un réseau privé de communiquer sur Internet via une adresse publique.\nPare-feu : équipement ou logiciel filtrant le trafic réseau selon des règles définies, afin de contrôler les communications entre différentes zones.\npfSense : distribution libre basée sur FreeBSD, dédiée aux fonctions de pare-feu et de routeur, administrable via une interface web.\nSous-réseau : subdivision logique d'un réseau IP, permettant de segmenter les usages et de mieux maîtriser le trafic et les règles de sécurité.\n\nAnnexes\nAnnexe 1 : schéma simplifié du réseau de la mairie.\nAnnexe 2 : photographies du chantier de câblage au stade de Gourbeyre.\nAnnexe 3 : captures d'écran de l'interface pfSense (table des baux DHCP, configuration d'un sous-réseau) — pensez à masquer les informations sensibles.\nAnnexe 4 : organigramme des services de la mairie.\nAnnexe 5 : convention de stage et attestation de fin de stage.",
+    "size": 32597,
+    "updated": "2026-09-09 11:44 UTC"
+  }
+}

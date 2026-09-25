@@ -1,0 +1,11 @@
+# Configuration réelle — contient l'identifiant et le hash du mot de passe admin.
+# Utiliser config.example.json comme point de départ.
+config.json
+
+# Supports de cours et documents personnels : jamais versionnés.
+cours/
+files/
+
+__pycache__/
+*.pyc
+.env

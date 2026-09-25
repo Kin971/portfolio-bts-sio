@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Référentiel BTS SIO SLAM — Raphael TILACDHARY JEAN" />
+  <title>Référentiel — Portfolio BTS SIO SLAM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23060809'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' font-weight='700' fill='%2339ff6a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body data-page="slam-referentiel">
+
+  <canvas id="matrixCanvas"></canvas>
+  <div id="bootScreen"><div class="boot-box"></div><button class="boot-skip" type="button">passer ⏭</button></div>
+  <div id="pageTransition"><span class="pt-text">chargement…</span></div>
+  <div id="updateBanner"><span class="spin"></span><span>Mise à jour détectée — rechargement…</span></div>
+  <div id="progress-bar"></div>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../" class="nav-logo"><span class="bracket">&lt;</span>Raphael Tilacdhary Jean<span class="bracket">/&gt;</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../apropos/" class="nav-link">À propos</a></li>
+        <li><a href="../competences/" class="nav-link">Compétences</a></li>
+        <li><a href="../projets/" class="nav-link">Projets</a></li>
+        <li><a href="./" class="nav-link active">Référentiel</a></li>
+        <li><a href="../cybersecurite/" class="nav-link">Cybersécurité</a></li>
+        <li><a href="../../contact/" class="nav-link nav-cta">Contact</a></li>
+        <li><a href="../../sisr/" class="nav-link" title="Parcours SISR">🎓 SISR →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height:auto; padding:9rem 0 2rem;">
+    <div class="hero-bg"><div class="hero-dots"></div><div class="hero-glow"></div></div>
+    <div class="container">
+      <div class="hero-text" data-animate style="padding:0;">
+        <span class="hero-badge">04 · Référentiel</span>
+        <h1>Compétences <span class="gradient-text">BTS SIO SLAM</span></h1>
+        <p class="hero-desc">Correspondance entre le référentiel officiel et mes réalisations — cliquez une ligne pour la déplier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tabs" data-animate>
+        <button class="tab active" data-tab="bloc1">Bloc 1 — Commun SLAM/SISR</button>
+        <button class="tab" data-tab="bloc2">Bloc 2 — SLAM spécifique</button>
+      </div>
+
+      <!-- Bloc 1 -->
+      <div class="tab-panel active" id="bloc1">
+        <div class="ref-accordion" data-animate>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B1.1</span>
+              <span class="ref-row-title">Gérer le patrimoine informatique</span>
+              <span class="ref-level partial">En cours</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Recenser, identifier et documenter les ressources.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">📁 Organisation projets</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">📄 Doc. projet ZARMY</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\D2-BASE DE DONNEES\Comm.sql">📂 Guide SQL complet</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B1.2</span>
+              <span class="ref-row-title">Répondre aux incidents</span>
+              <span class="ref-level partial">En cours</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Diagnostiquer, qualifier et résoudre les incidents.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); location.href='../cybersecurite/'">🔒 TP Cybersécurité</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">🐛 Débogage ZARMY</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B1.3</span>
+              <span class="ref-row-title">Développer la présence en ligne</span>
+              <span class="ref-level good">Acquis</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Créer et maintenir des sites, valoriser l'image.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">🌐 Sites HTML/CSS</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">🐘 Exercices PHP</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../../sisr/'">🖥️ Portfolio &amp; sites web</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B1.4</span>
+              <span class="ref-row-title">Travailler en mode projet</span>
+              <span class="ref-level partial">En cours</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Planifier, suivre et documenter des réalisations.</p>
+              <div class="evidences">
+                <span>📖 README / rendus TP</span>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\D2-BASE DE DONNEES\Comm.sql">📊 Documentation SQL</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B1.5</span>
+              <span class="ref-row-title">Mettre à disposition un service</span>
+              <span class="ref-level good">Acquis</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Déployer, configurer, accompagner les utilisateurs.</p>
+              <div class="evidences"><span>🌐 Déploiement Flask</span><span>☁️ Tunnel Cloudflare</span></div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B1.6</span>
+              <span class="ref-row-title">Développement professionnel</span>
+              <span class="ref-level good">Acquis</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Veille technologique, formation continue.</p>
+              <div class="evidences">
+                <span>📚 Formation BTS SIO</span>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\AP1-Atellers de Professionnalistion\Lettre de motivation.pdf">✉️ Lettre de motivation</button>
+                <span>🤖 Intégration APIs IA</span>
+              </div>
+            </div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bloc 2 -->
+      <div class="tab-panel" id="bloc2">
+        <div class="ref-accordion" data-animate>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B2.1</span>
+              <span class="ref-row-title">Développer des solutions applicatives</span>
+              <span class="ref-level excellent">Maîtrisé</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Concevoir et développer des composants logiciels.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\math\Python">🖥️ Applications Python / Flask</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">⚔️ ZARMY (Java POO)</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\math\Python">🐍 Scripts Python</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">🌐 Sites HTML/CSS/PHP</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B2.2</span>
+              <span class="ref-row-title">Gérer les données</span>
+              <span class="ref-level excellent">Maîtrisé</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Concevoir une BDD, écrire des requêtes SQL complexes.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\D2-BASE DE DONNEES\Comm.sql">🗄️ Guide SQL (1 106 lignes)</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\D2-BASE DE DONNEES\Comm.sql">📊 Modélisation MCD</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\D2-BASE DE DONNEES\Comm.sql">🔐 GRANT / REVOKE SQL</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B2.3</span>
+              <span class="ref-row-title">Recueillir et formaliser les besoins</span>
+              <span class="ref-level partial">En cours</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Analyser les besoins, rédiger des cahiers des charges.</p>
+              <div class="evidences"><span>📄 Cahiers des charges &amp; TP</span><span>📊 Cours Conception</span></div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B2.4</span>
+              <span class="ref-row-title">Réaliser des tests</span>
+              <span class="ref-level partial">En cours</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Concevoir et exécuter des plans de tests, corriger les anomalies.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">🧪 Tests unitaires &amp; manuels</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\math\Python\Eval.py">✅ Eval.py (Python)</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B2.5</span>
+              <span class="ref-row-title">Concevoir une solution logicielle</span>
+              <span class="ref-level good">Acquis</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Modéliser les traitements, concevoir l'architecture.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\math\Python">🏗️ Architecture MVC Flask</button>
+                <button type="button" onclick="event.stopPropagation(); location.href='../projets/'">📐 Pattern Stratégie Java</button>
+                <span>📊 Guide MCD (PDF)</span>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="ref-row-wrap">
+            <div class="ref-row" onclick="this.parentElement.classList.toggle('open')">
+              <span class="ref-code">B2.6</span>
+              <span class="ref-row-title">Réaliser des composants de sécurité</span>
+              <span class="ref-level good">Acquis</span>
+              <svg class="ref-row-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="ref-row-details"><div class="ref-row-details-inner">
+              <p>Mécanismes de sécurité, contrôles d'accès, chiffrement.</p>
+              <div class="evidences">
+                <button type="button" onclick="event.stopPropagation(); location.href='../cybersecurite/'">🔒 Cryptologie (cours + TP)</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\1er Semestre\CorrectionConsole\src\PincipaleCorrectionConsole.java">🗝️ Auth Java (3 tentatives)</button>
+                <button type="button" onclick="event.stopPropagation(); openFile(this)" data-path="BTS SIO COURS\1ere Année\Cisneros\D2-BASE DE DONNEES\Comm.sql">🔐 Droits SQL</button>
+              </div>
+            </div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" style="padding:2.5rem 0;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <span style="color:var(--muted); font-size:0.9rem;">Suite logique →</span>
+      <a href="../cybersecurite/" class="btn btn-outline">Voir le dossier cybersécurité</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><span class="bracket">&lt;</span>Raphael TILACDHARY JEAN<span class="bracket">/&gt;</span><p>Portfolio BTS SIO SLAM</p></div>
+        <nav class="footer-nav">
+          <a href="../">Accueil</a><a href="../apropos/">À propos</a><a href="../competences/">Compétences</a>
+          <a href="../projets/">Projets</a><a href="../cybersecurite/">Cybersécurité</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Raphael TILACDHARY JEAN</span><span>Fait avec 💙</span></div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <div id="toast"></div>
+
+  <!-- Modal visualiseur de code (utilisé par les preuves cliquables) -->
+  <div id="codeModal" class="cm-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="cm-box">
+      <div class="cm-header">
+        <div class="cm-title">
+          <span id="cmIcon">📄</span>
+          <span id="cmFilename" class="cm-fname">fichier</span>
+          <span id="cmLang" class="cm-badge"></span>
+          <span id="cmMeta" class="cm-meta"></span>
+        </div>
+        <div class="cm-actions">
+          <button class="cm-btn" id="cmCopyBtn" onclick="copyModalCode()" title="Copier le code">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copier le code
+          </button>
+          <button class="cm-btn cm-close-btn" onclick="closeModal()" title="Fermer (Échap)">✕</button>
+        </div>
+      </div>
+      <div id="cmBody" class="cm-body"></div>
+    </div>
+  </div>
+
+  <script src="../../js/script.js"></script>
+  <script src="../../js/effects.js"></script>
+</body>
+</html>
