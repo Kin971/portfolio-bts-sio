@@ -423,7 +423,11 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
         # 2) Le fichier réellement visé sur le disque, quelle que soit
         #    l'écriture de l'URL (encodage, double slash, casse, lien…).
         try:
-            return _fs_key(self.translate_path(url_path)) in _FORBIDDEN_FILES
+            target = self.translate_path(url_path)
+            # Windows ignore les points et espaces en fin de nom : « config.json. »
+            # y ouvre config.json. On compare donc aussi le nom nettoyé.
+            trimmed = os.path.join(os.path.dirname(target), os.path.basename(target).rstrip('. '))
+            return _fs_key(target) in _FORBIDDEN_FILES or _fs_key(trimmed) in _FORBIDDEN_FILES
         except ValueError:
             # Octet nul (%00) dans l'URL : chemin invalide, refusé net
             # plutôt qu'une exception qui coupe la connexion.
@@ -474,10 +478,12 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
         super().send_error(code, message, explain)
 
     def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        # Aucune autorisation CORS : le site et le panneau admin sont servis
+        # par ce même serveur (même origine). L'ancien « Access-Control-
+        # Allow-Origin: * » permettait à n'importe quel site de piloter
+        # /api/auth depuis le navigateur de ses visiteurs.
+        self.send_response(204)
+        self.send_header('Allow', 'GET, HEAD, POST, OPTIONS')
         self.send_header('Content-Length', '0')
         self.end_headers()
 
@@ -508,7 +514,6 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'application/javascript; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))
-            self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(body)
 
@@ -562,6 +567,13 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         path = self._url_path()
+        if 'chunked' in self.headers.get('Transfer-Encoding', '').lower():
+            # Corps « chunked » non géré : on refuse net plutôt que de le
+            # laisser sur la connexion, où il serait lu comme une requête
+            # suivante (désynchronisation).
+            self.close_connection = True
+            self._json({'error': 'Content-Length requis.'}, status=411)
+            return
         try:
             length = int(self.headers.get('Content-Length', 0))
         except ValueError:
@@ -622,6 +634,9 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
                 # de mot de passe, le moindre « Sauvegarder » (thème,
                 # projets…) réécrivait l'ANCIEN hash et annulait le
                 # changement sans prévenir.
+                if not body:
+                    self._json({'error': 'Configuration vide refusée.'}, status=400)
+                    return
                 body['admin'] = _load_config().get('admin', {})
                 _save_config(body)
                 self._json({'ok': True})
@@ -731,7 +746,6 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(status)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
-        self.send_header('Access-Control-Allow-Origin', '*')
         # Réponses dynamiques (config, jetons, version du site) : jamais en cache.
         self.send_header('Cache-Control', 'no-store')
         for name, value in (extra_headers or {}).items():
